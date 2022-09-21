@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_steps_tracker/features/splash/view.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'features/sign_in/view.dart';
 import 'firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
 
@@ -19,7 +21,10 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
         title: 'Flutter Demo',
         theme: ThemeData(
-          primarySwatch: Colors.blue,
+          // primaryColor: Color(0xFF5BB318),
+          colorScheme: ColorScheme.fromSwatch()
+              .copyWith(primary: Color(0xFF5BB318), secondary: Color(0xFFEAE509)),
+          textTheme: GoogleFonts.cairoTextTheme()
         ),
         home: FutureBuilder<List>(
           future: Future.wait([
@@ -30,16 +35,17 @@ class MyApp extends StatelessWidget {
             Future.delayed(Duration(seconds: 3)),
           ]),
           builder: (context, snapshot) {
-            if(snapshot.connectionState==ConnectionState.waiting){
+            if (snapshot.connectionState == ConnectionState.waiting) {
               return SplashPage();
-            }else if(snapshot.hasData){
+            } else if (snapshot.hasData) {
               SharedPreferences pref = snapshot.data![1];
               Get.put(pref);
-
-            }else{
+              return SignInPage();
+            } else {
               return Scaffold(
                 body: Center(
-                  child: Text("Error",style: Theme.of(context).textTheme.headline3),
+                  child: Text("Error",
+                      style: Theme.of(context).textTheme.headline3),
                 ),
               );
             }
