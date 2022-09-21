@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_steps_tracker/features/home/view.dart';
 import 'package:get/get.dart';
 import 'package:simple_gradient_text/simple_gradient_text.dart';
 
@@ -10,15 +11,17 @@ class SignInPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: Text("Welcome",style: TextStyle(
-            fontWeight: FontWeight.bold,
-            color: Theme.of(context).colorScheme.primary
-        ),),
-        elevation: 0,
-        backgroundColor: Colors.transparent,
-      ),
+        appBar: AppBar(
+          centerTitle: true,
+          title: Text(
+            "Welcome",
+            style: TextStyle(
+                fontWeight: FontWeight.bold,
+                color: Theme.of(context).colorScheme.primary),
+          ),
+          elevation: 0,
+          backgroundColor: Colors.transparent,
+        ),
         body: Center(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -30,49 +33,67 @@ class SignInPage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Expanded(child: Image.asset("assets/images/icon.png",fit: BoxFit.contain,)),
-                    SizedBox(height: 8,),
+                    Expanded(
+                        child: Image.asset(
+                      "assets/images/icon.png",
+                      fit: BoxFit.contain,
+                    )),
+                    SizedBox(
+                      height: 8,
+                    ),
                     GradientText(
                       "Steptiper",
                       style: TextStyle(
-                          fontSize: 40.0,
-                          fontWeight: FontWeight.bold
-                      ),
+                          fontSize: 40.0, fontWeight: FontWeight.bold),
                       colors: [
                         Theme.of(context).colorScheme.primary,
                         Theme.of(context).colorScheme.secondary,
                       ],
                     ),
-                    Text("TIP YOURSELF WITH YOUR STEPS",style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Theme.of(context).colorScheme.primary
-                    ),),
+                    Text(
+                      "TIP YOURSELF WITH YOUR STEPS",
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Theme.of(context).colorScheme.primary),
+                    ),
                   ],
                 ),
               ),
-              SizedBox(height: 8,),
+              SizedBox(
+                height: 8,
+              ),
               Expanded(
                 flex: 3,
-                child: Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16,vertical: 8),
-                      child: TextField(
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(16),
+                child: Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 16,
+                          vertical: 8,
+                        ),
+                        child: TextField(
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(16),
+                            ),
+                            hintText: 'Enter your name',
                           ),
-                          hintText: 'Enter your name',
                         ),
                       ),
-                    ),
-                    ElevatedButton(onPressed: (){}, child: Text("Enter")),
-                  ],
+                      ElevatedButton(
+                        onPressed: () {
+                          Get.off(() => HomePage());
+                        },
+                        child: Text("Enter"),
+                      ),
+                    ],
+                  ),
                 ),
               )
             ],
           ),
-        )
-    );
+        ));
   }
 }

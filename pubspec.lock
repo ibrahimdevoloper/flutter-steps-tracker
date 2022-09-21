@@ -177,6 +177,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.8.0"
+  odometer:
+    dependency: "direct main"
+    description:
+      name: odometer
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "3.0.0"
   path:
     dependency: transitive
     description:

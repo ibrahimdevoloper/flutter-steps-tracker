@@ -42,6 +42,7 @@ dependencies:
   shared_preferences: ^2.0.15
   simple_gradient_text: 1.2.3
   google_fonts:
+  odometer: ^3.0.0
 
 dev_dependencies:
   flutter_test:
