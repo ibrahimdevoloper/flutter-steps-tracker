@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_steps_tracker/features/leaderboard/view.dart';
+import 'package:flutter_steps_tracker/features/our_rewards/view.dart';
 import 'package:get/get.dart';
 import 'package:odometer/odometer.dart';
 
@@ -58,7 +60,7 @@ class HomePage extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Image.asset(
-                                  'assets/images/icon.png',
+                                  'assets/images/yellow_icon.png',
                                   height: 20,
                                 ),
                                 Text(
@@ -169,8 +171,8 @@ class HomePage extends StatelessWidget {
                   ),
                   TextButton(
                     onPressed: () {
-                      //TODO: GO TO Leader Board
-                    },
+                      Get.to(()=>LeaderboardPage());
+                      },
                     child: Text(
                       "See more",
                       style: Theme.of(context).textTheme.button!.copyWith(
@@ -315,7 +317,7 @@ class HomePage extends StatelessWidget {
                   ),
                   TextButton(
                     onPressed: () {
-                      //TODO: GO TO Leader Board
+                     Get.to(()=>OurRewardsPage());
                     },
                     child: Text(
                       "See more",
@@ -335,25 +337,19 @@ class HomePage extends StatelessWidget {
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(16.0),
                       ),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(24),
-                          color: Theme.of(context).colorScheme.primary,
-                        ),
-                        child: AspectRatio(
-                          aspectRatio: 1,
-                          child: Center(
-                            child: Text(
-                              "3",
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headline6!
-                                  .copyWith(
-                                fontWeight: FontWeight.bold,
-                                color: Theme.of(context)
-                                    .colorScheme
-                                    .secondary,
-                              ),
+                      child: AspectRatio(
+                        aspectRatio: 1,
+                        child: Center(
+                          child: Text(
+                            "3",
+                            style: Theme.of(context)
+                                .textTheme
+                                .headline6!
+                                .copyWith(
+                              fontWeight: FontWeight.bold,
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .secondary,
                             ),
                           ),
                         ),
