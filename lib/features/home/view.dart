@@ -99,7 +99,7 @@ class HomePage extends StatelessWidget {
                                       3: (controller.stepCount / 100 % 10)
                                           .floorToDouble(),
                                     }),
-                                    duration: const Duration(seconds: 1),
+                                    duration: const Duration(milliseconds: 600),
                                     numberTextStyle: Theme.of(context)
                                         .textTheme
                                         .headline2!
@@ -164,7 +164,7 @@ class HomePage extends StatelessWidget {
               ),
               Center(
                 child: Text(
-                  "100 Steps = 1 Heath Point (HP)",
+                  "20 Steps = 1 Heath Point (HP)",
                   style: Theme.of(context).textTheme.caption!.copyWith(
                         fontWeight: FontWeight.bold,
                         color: Theme.of(context)

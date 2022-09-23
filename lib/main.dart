@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_steps_tracker/features/splash/view.dart';
+import 'package:flutter_steps_tracker/utilities/sound_service.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:soundpool/soundpool.dart';
 
 import 'features/sign_in/view.dart';
 import 'firebase_options.dart';
@@ -40,6 +43,10 @@ class MyApp extends StatelessWidget {
             } else if (snapshot.hasData) {
               SharedPreferences pref = snapshot.data![1];
               Get.put(pref);
+
+              var soundService = SoundService();
+              Get.put(soundService);
+
               return SignInPage();
             } else {
               return Scaffold(
