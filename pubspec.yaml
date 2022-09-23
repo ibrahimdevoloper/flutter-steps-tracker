@@ -44,6 +44,8 @@ dependencies:
   google_fonts:
   odometer: ^3.0.0
   soundpool: ^2.3.0
+  firebase_auth: ^3.10.0
+  cloud_firestore: ^3.4.9
 
 dev_dependencies:
   flutter_test:

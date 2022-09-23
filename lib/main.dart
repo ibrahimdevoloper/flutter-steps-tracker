@@ -1,5 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_steps_tracker/features/home/view.dart';
 import 'package:flutter_steps_tracker/features/splash/view.dart';
 import 'package:flutter_steps_tracker/utilities/sound_service.dart';
 import 'package:get/get.dart';
@@ -24,11 +26,12 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
         title: 'Flutter Demo',
         theme: ThemeData(
-          // primaryColor: Color(0xFF5BB318),
-          colorScheme: ColorScheme.fromSwatch()
-              .copyWith(primary: Color(0xFF5BB318), secondary: Color(0xFFEAE509),),
-          textTheme: GoogleFonts.cairoTextTheme()
-        ),
+            // primaryColor: Color(0xFF5BB318),
+            colorScheme: ColorScheme.fromSwatch().copyWith(
+              primary: Color(0xFF5BB318),
+              secondary: Color(0xFFEAE509),
+            ),
+            textTheme: GoogleFonts.cairoTextTheme()),
         home: FutureBuilder<List>(
           future: Future.wait([
             Firebase.initializeApp(
@@ -47,7 +50,17 @@ class MyApp extends StatelessWidget {
               var soundService = SoundService();
               Get.put(soundService);
 
-              return SignInPage();
+              return StreamBuilder<User?>(
+                  stream: FirebaseAuth.instance.authStateChanges(),
+                  builder: (context, snapshot) {
+                    SharedPreferences pref = Get.find();
+                    var username = pref.getString("username") ?? "";
+                    if (snapshot.data == null || username.isEmpty) {
+                      return SignInPage();
+                    } else {
+                      return HomePage();
+                    }
+                  });
             } else {
               return Scaffold(
                 body: Center(
