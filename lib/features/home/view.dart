@@ -308,8 +308,7 @@ class HomePage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    "Redemption Brands",
-                    style: Theme.of(context).textTheme.headline5!.copyWith(
+                    "Redeem Rewards",style: Theme.of(context).textTheme.headline5!.copyWith(
                           fontWeight: FontWeight.bold,
                           color: Theme.of(context).colorScheme.primary,
                         ),
