@@ -35,7 +35,7 @@ class OurRewardsPage extends StatelessWidget {
               ),
             ),
             title: Text("Reward Name"),
-            subtitle: Text("Brand Name"),
+            subtitle: Text("Points: 100"),
           ),);
       }),
     );

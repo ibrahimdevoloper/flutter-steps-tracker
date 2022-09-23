@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           // primaryColor: Color(0xFF5BB318),
           colorScheme: ColorScheme.fromSwatch()
-              .copyWith(primary: Color(0xFF5BB318), secondary: Color(0xFFEAE509)),
+              .copyWith(primary: Color(0xFF5BB318), secondary: Color(0xFFEAE509),),
           textTheme: GoogleFonts.cairoTextTheme()
         ),
         home: FutureBuilder<List>(
