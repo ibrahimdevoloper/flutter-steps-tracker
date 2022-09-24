@@ -25,10 +25,8 @@ class LeaderboardController extends GetxController {
       for (var userDoc in userDocs.docs) {
         _users.add(UserData.fromJson(userDoc.data()));
       }
-
       _isloading = false;
       update();
-      showNotificationSnakebar("Sign in Success");
     } catch (e) {
       showErrorSnakebar("Error while getting data");
       _isloading = false;
