@@ -26,16 +26,3 @@ void showNotificationSnakebar(message, {title = "Success"}) {
     duration: Duration(seconds: 3),
   );
 }
-
-void AddNewPointSnakebar() {
-  Get.snackbar(
-    "New Point",
-    "New point were added",
-    snackPosition: SnackPosition.TOP,
-    backgroundColor: Colors.black38,
-    colorText: Colors.white,
-    margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-    borderRadius: 16,
-    duration: Duration(seconds: 3),
-  );
-}

@@ -29,6 +29,13 @@
             {
               "client_id": "289648665608-7hjj3lcmoerav3dsl0aqeuhm0ums2an4.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "289648665608-d8k6bre1gnhg9agn7iflrd779krko91e.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.ibrahimshaglil.flutterStepsTracker"
+              }
             }
           ]
         }

@@ -48,6 +48,7 @@ dependencies:
   cloud_firestore: ^3.4.9
   json_annotation: ^4.5.0
   permission_handler: ^10.0.1
+  cached_network_image: ^3.2.1
 
 
 dev_dependencies:
