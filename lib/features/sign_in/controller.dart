@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_steps_tracker/features/home/view.dart';
 import 'package:flutter_steps_tracker/utilities/custom_snackbar.dart';
 import 'package:get/get.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_steps_tracker/utilities/project_constants.dart';
 
@@ -30,30 +31,38 @@ class SignInController extends GetxController {
     }
   }
 
+  requestPermission(){
+
+  }
+
   SignIn() async {
     try {
       if(validator()) {
-        _isloading=true;
-        update();
-        final userCredential = await _auth.signInAnonymously();
-        //TODO: USERDATA CLASS
-        _db.collection("users").add({
-          "user_id":userCredential.user?.uid,
-          "name":_username,
-          "created_at":Timestamp.now(),
-          "updated_at":Timestamp.now(),
-          "redeemed_points":0,
-          "remaining_points":0,
-          "step_count":0,
-          "total_points":0,
-        });
-        SharedPreferences pref = Get.find();
-        pref.setString(ProjectConstants.userId, userCredential.user!.uid);
-        pref.setString(ProjectConstants.username, _username!);
-        _isloading=false;
-        update();
-        Get.off(() => HomePage());
-        showNotificationSnakebar("Sign in Success");
+        if (await Permission.activityRecognition.request().isGranted) {
+          _isloading=true;
+          update();
+          final userCredential = await _auth.signInAnonymously();
+          //TODO: USERDATA CLASS
+          _db.collection("users").add({
+            "user_id":userCredential.user?.uid,
+            "name":_username,
+            "created_at":Timestamp.now(),
+            "updated_at":Timestamp.now(),
+            "redeemed_points":0,
+            "remaining_points":0,
+            "step_count":0,
+            "total_points":0,
+          });
+          SharedPreferences pref = Get.find();
+          pref.setString(ProjectConstants.userId, userCredential.user!.uid);
+          pref.setString(ProjectConstants.username, _username!);
+          _isloading=false;
+          update();
+          Get.off(() => HomePage());
+          showNotificationSnakebar("Sign in Success");
+        }else {
+          showErrorSnakebar("Permission Not Accepted");
+        }
       }else{
         _isloading=false;
         update();
