@@ -17,7 +17,10 @@ class SignInPage extends StatelessWidget {
             "Welcome",
             style: TextStyle(
                 fontWeight: FontWeight.bold,
-                color: Theme.of(context).colorScheme.primary),
+                color: Theme
+                    .of(context)
+                    .colorScheme
+                    .primary),
           ),
           elevation: 0,
           backgroundColor: Colors.transparent,
@@ -35,9 +38,9 @@ class SignInPage extends StatelessWidget {
                   children: [
                     Expanded(
                         child: Image.asset(
-                      "assets/images/icon.png",
-                      fit: BoxFit.contain,
-                    )),
+                          "assets/images/icon.png",
+                          fit: BoxFit.contain,
+                        )),
                     SizedBox(
                       height: 8,
                     ),
@@ -46,15 +49,24 @@ class SignInPage extends StatelessWidget {
                       style: TextStyle(
                           fontSize: 40.0, fontWeight: FontWeight.bold),
                       colors: [
-                        Theme.of(context).colorScheme.primary,
-                        Theme.of(context).colorScheme.secondary,
+                        Theme
+                            .of(context)
+                            .colorScheme
+                            .primary,
+                        Theme
+                            .of(context)
+                            .colorScheme
+                            .secondary,
                       ],
                     ),
                     Text(
                       "TIP YOURSELF WITH YOUR STEPS",
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
-                          color: Theme.of(context).colorScheme.primary),
+                          color: Theme
+                              .of(context)
+                              .colorScheme
+                              .primary),
                     ),
                   ],
                 ),
@@ -80,14 +92,23 @@ class SignInPage extends StatelessWidget {
                             ),
                             hintText: 'Enter your name',
                           ),
+                          onChanged: (value){
+                            controller.username=value;
+                          },
                         ),
                       ),
-                      ElevatedButton(
-                        onPressed: () {
-                          Get.off(() => HomePage());
-                        },
-                        child: Text("Enter"),
-                      ),
+                      GetBuilder<SignInController>(
+                        init: controller,
+                          builder: (controller) {
+                        return controller.isloading?
+                            CircularProgressIndicator():
+                        ElevatedButton(
+                          onPressed: () {
+                            controller.SignIn();
+                          },
+                          child: Text("Enter"),
+                        );
+                      }),
                     ],
                   ),
                 ),

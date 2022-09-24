@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_steps_tracker/features/history/views/view.dart';
+import 'package:flutter_steps_tracker/features/leaderboard/view.dart';
+import 'package:flutter_steps_tracker/features/our_rewards/view.dart';
 import 'package:get/get.dart';
 import 'package:odometer/odometer.dart';
 
@@ -20,7 +23,13 @@ class HomePage extends StatelessWidget {
               // color: Theme.of(context).colorScheme.secondary,
             ),
           ),
-          elevation: 0,
+          actions: [
+            IconButton(
+                onPressed: () {
+                  Get.to(() => HistoryPage());
+                },
+                icon: Icon(Icons.calendar_today_rounded))
+          ],
         ),
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
@@ -58,7 +67,7 @@ class HomePage extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Image.asset(
-                                  'assets/images/icon.png',
+                                  'assets/images/yellow_icon.png',
                                   height: 20,
                                 ),
                                 Text(
@@ -76,25 +85,33 @@ class HomePage extends StatelessWidget {
                                 ),
                               ],
                             ),
-                            AnimatedSlideOdometerNumber(
-                              letterWidth: 36,
-                              odometerNumber: OdometerNumber.fromDigits({
-                                1: (_count % 10).floorToDouble(),
-                                2: (_count / 10 % 10).floorToDouble(),
-                                3: (_count / 100 % 10).floorToDouble(),
-                              }),
-                              duration: const Duration(seconds: 1),
-                              numberTextStyle: Theme.of(context)
-                                  .textTheme
-                                  .headline2!
-                                  .copyWith(
-                                    fontWeight: FontWeight.bold,
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .secondary
-                                        .withOpacity(0.90),
-                                  ),
-                            ),
+                            GetBuilder<HomeController>(
+                                init: controller,
+                                id: HomeController.stepCounterTag,
+                                builder: (controller) {
+                                  return AnimatedSlideOdometerNumber(
+                                    letterWidth: 36,
+                                    odometerNumber: OdometerNumber.fromDigits({
+                                      1: (controller.stepCount % 10)
+                                          .floorToDouble(),
+                                      2: (controller.stepCount / 10 % 10)
+                                          .floorToDouble(),
+                                      3: (controller.stepCount / 100 % 10)
+                                          .floorToDouble(),
+                                    }),
+                                    duration: const Duration(milliseconds: 600),
+                                    numberTextStyle: Theme.of(context)
+                                        .textTheme
+                                        .headline2!
+                                        .copyWith(
+                                          fontWeight: FontWeight.bold,
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .secondary
+                                              .withOpacity(0.90),
+                                        ),
+                                  );
+                                }),
                           ],
                         ),
                       ),
@@ -147,7 +164,7 @@ class HomePage extends StatelessWidget {
               ),
               Center(
                 child: Text(
-                  "100 Steps = 1 Heath Point (HP)",
+                  "20 Steps = 1 Heath Point (HP)",
                   style: Theme.of(context).textTheme.caption!.copyWith(
                         fontWeight: FontWeight.bold,
                         color: Theme.of(context)
@@ -169,7 +186,7 @@ class HomePage extends StatelessWidget {
                   ),
                   TextButton(
                     onPressed: () {
-                      //TODO: GO TO Leader Board
+                      Get.to(() => LeaderboardPage());
                     },
                     child: Text(
                       "See more",
@@ -308,7 +325,7 @@ class HomePage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    "Redemption Brands",
+                    "Redeem Rewards",
                     style: Theme.of(context).textTheme.headline5!.copyWith(
                           fontWeight: FontWeight.bold,
                           color: Theme.of(context).colorScheme.primary,
@@ -316,7 +333,7 @@ class HomePage extends StatelessWidget {
                   ),
                   TextButton(
                     onPressed: () {
-                      //TODO: GO TO Leader Board
+                      Get.to(() => OurRewardsPage());
                     },
                     child: Text(
                       "See more",
@@ -336,26 +353,19 @@ class HomePage extends StatelessWidget {
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(16.0),
                       ),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(24),
-                          color: Theme.of(context).colorScheme.primary,
-                        ),
-                        child: AspectRatio(
-                          aspectRatio: 1,
-                          child: Center(
-                            child: Text(
-                              "3",
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headline6!
-                                  .copyWith(
-                                fontWeight: FontWeight.bold,
-                                color: Theme.of(context)
-                                    .colorScheme
-                                    .secondary,
-                              ),
-                            ),
+                      child: AspectRatio(
+                        aspectRatio: 1,
+                        child: Center(
+                          child: Text(
+                            "3",
+                            style: Theme.of(context)
+                                .textTheme
+                                .headline6!
+                                .copyWith(
+                                  fontWeight: FontWeight.bold,
+                                  color:
+                                      Theme.of(context).colorScheme.secondary,
+                                ),
                           ),
                         ),
                       ),
