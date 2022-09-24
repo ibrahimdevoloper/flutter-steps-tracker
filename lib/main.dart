@@ -6,36 +6,13 @@ import 'package:flutter_steps_tracker/features/splash/view.dart';
 import 'package:flutter_steps_tracker/utilities/sound_service.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:pedometer/pedometer.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:soundpool/soundpool.dart';
 
 import 'features/sign_in/view.dart';
 import 'firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
-void onStepCount(StepCount event) {
-  /// Handle step count changed
-  int steps = event.steps;
-  DateTime timeStamp = event.timeStamp;
-  print(steps);
-}
-void onPedestrianStatusChanged(PedestrianStatus event) {
-  /// Handle status changed
-  String status = event.status;
-  DateTime timeStamp = event.timeStamp;
-  print(status);
-}
-Future<void> main() async {
-  Stream<StepCount> _stepCountStream;
-  Stream<PedestrianStatus> _pedestrianStatusStream;
-  /// Init streams
-  _pedestrianStatusStream = await Pedometer.pedestrianStatusStream;
-  _stepCountStream = await Pedometer.stepCountStream;
 
-  /// Listen to streams and handle errors
-  _stepCountStream.listen(onStepCount);
-  _pedestrianStatusStream
-      .listen(onPedestrianStatusChanged);
+Future<void> main() async {
   runApp(const MyApp());
 }
 

@@ -59,9 +59,10 @@ class HomeController extends GetxController {
   incrementFirestoreSteps() async {
     try {
       var userData = this._userData;
-      userData!.stepCount=stepCount as double;
-      userData.totalPoints = healthPoints as double;
+      userData!.stepCount=stepCount.toDouble();
+      userData.totalPoints = healthPoints.toDouble();
           await _db.collection("users").doc(_userid).set(userData.toJson());
+          //TODO: send history
     } catch (e) {
       showErrorSnakebar("Error while sending data");
       _isloading = false;

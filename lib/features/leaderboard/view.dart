@@ -44,7 +44,7 @@ class LeaderboardPage extends StatelessWidget {
                 ),
                 child: Center(
                   child: Text(
-                    i.toString(),
+                    (i+1).toString(),
                     style: Theme
                         .of(context)
                         .textTheme

@@ -9,7 +9,7 @@ class LeaderboardController extends GetxController {
 
   List<UserData> _users = [];
 
-  HomeController() {
+  LeaderboardController() {
     _db = FirebaseFirestore.instance;
     getData();
   }
