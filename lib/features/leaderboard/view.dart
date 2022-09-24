@@ -15,7 +15,12 @@ class LeaderboardPage extends StatelessWidget {
       body: GetBuilder<LeaderboardController>(
           init:controller,
           builder: (controller) {
-        return ListView.builder(
+            if(controller.isloading) {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            } else {
+              return ListView.builder(
           itemCount: controller.users.length,
             itemBuilder: (context, i) {
             var user = controller.users[i];
@@ -108,6 +113,7 @@ class LeaderboardPage extends StatelessWidget {
             ),
           );
         });
+            }
       }),
     );
   }
