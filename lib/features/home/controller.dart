@@ -1,7 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_steps_tracker/Models/redeem/redeem.dart';
 import 'package:flutter_steps_tracker/Models/reward/reward.dart';
+import 'package:flutter_steps_tracker/Models/steps_number/steps_number.dart';
 import 'package:flutter_steps_tracker/Models/user_data/user_data.dart';
 import 'package:flutter_steps_tracker/features/home/Services/pedometer_service.dart';
 import 'package:flutter_steps_tracker/utilities/custom_snackbar.dart';
@@ -28,9 +30,9 @@ class HomeController extends GetxController {
   List<Reward> _rewards = [];
   int _stepCount = 0;
   int _healthPoints = 0;
-  PedestrianStatus? pedoStatus= null;
+  PedestrianStatus? pedoStatus = null;
 
-  static var main="main";
+  static var main = "main";
 
   HomeController() {
     _db = FirebaseFirestore.instance;
@@ -44,8 +46,8 @@ class HomeController extends GetxController {
     });
     _pedometerService.stepCountStream.listen((event) {
       _stepCount = event.steps;
-      print(_stepCount);
-      if (_stepCount % 20 == 0 && pedoStatus?.status.compareTo("walking")==0) {
+      if (_stepCount % 20 == 0 &&
+          pedoStatus?.status.compareTo("walking") == 0) {
         _soundService.play();
         _healthPoints++;
         update([heathPointsTag]);
@@ -59,10 +61,16 @@ class HomeController extends GetxController {
   incrementFirestoreSteps() async {
     try {
       var userData = this._userData;
-      userData!.stepCount=stepCount.toDouble();
+      userData!.stepCount = stepCount.toDouble();
       userData.totalPoints = healthPoints.toDouble();
-          await _db.collection("users").doc(_userid).set(userData.toJson());
-          //TODO: send history
+      await _db.collection("users").doc(_userid).update(userData.toJson());
+      var stepsNumber = StepsNumber(stepCount.toDouble(),
+          Timestamp.now().millisecondsSinceEpoch, 1, "Point gained from walking");
+      await _db
+          .collection("users")
+          .doc(_userid)
+          .collection("steps_record")
+          .add(stepsNumber.toJson());
     } catch (e) {
       showErrorSnakebar("Error while sending data");
       _isloading = false;
@@ -81,6 +89,29 @@ class HomeController extends GetxController {
       borderRadius: 16,
       duration: Duration(seconds: 3),
     );
+  }
+
+  redeemPoints(Reward reward) async {
+    _userid = pref.getString(ProjectConstants.userId)!;
+    var userDoc = await _db.collection("users").doc(_userid).get();
+    var userData = UserData.fromJson(userDoc.data()!);
+    var remainingPoints = userData.remainingPoints.toInt();
+    if ((remainingPoints - reward.redeemPoints) >= 0) {
+      var redeem = Redeem(reward.id ?? reward.brand, reward.brand,
+          reward.imageUrl, reward.nameAr, reward.nameEn, reward.redeemPoints);
+      userData.redeemedPoints += reward.redeemPoints;
+      userData.remainingPoints = remainingPoints - reward.redeemPoints;
+      await _db.collection("users").doc(_userid).update(userData.toJson());
+      await _db
+          .collection("users")
+          .doc(_userid)
+          .collection('redeems')
+          .add(redeem.toJson());
+      showNotificationSnakebar("Redeem Successful");
+    } else {
+      showErrorSnakebar("You don't have enough points",
+          title: "Redeem Unsuccessful");
+    }
   }
 
   getData() async {

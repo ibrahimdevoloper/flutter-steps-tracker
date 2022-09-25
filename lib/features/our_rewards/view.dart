@@ -26,38 +26,54 @@ class OurRewardsPage extends StatelessWidget {
                   itemBuilder: (context, i) {
                     var reward = controller.rewards[i];
                     return Card(
-                      child: ListTile(
-                        leading: AspectRatio(
-                          aspectRatio: 1,
-                          child: Center(
-                            child: CachedNetworkImage(
-                              height: 40,
-                              imageUrl: reward.imageUrl,
-                              placeholder: (context, url) =>
-                                  CircularProgressIndicator(),
-                              errorWidget: (context, url, error) =>
-                                  Icon(Icons.error),
+                      child: InkWell(
+                        onTap: (){
+                          Get.defaultDialog(
+                              radius: 16,
+                              title: "Redeem from ${reward.brand}",
+                              content: Text("Do you want to redeem ${reward.redeemPoints} for ${reward.nameEn}?"),
+                              textConfirm: "Redeem",
+                              confirmTextColor: Theme.of(context).colorScheme.primary,
+                              textCancel: "Cancel",
+                              cancelTextColor: Theme.of(context).colorScheme.primary,
+                              onConfirm: (){
+                                //TODO: Redeem points
+                                Get.back();
+                              },
+                              onCancel: (){
+                                Get.back();
+                              }
+                          );
+                        },
+                        child: ListTile(
+                          leading: AspectRatio(
+                            aspectRatio: 1,
+                            child: Center(
+                              child: CachedNetworkImage(
+                                height: 40,
+                                imageUrl: reward.imageUrl,
+                                placeholder: (context, url) =>
+                                    CircularProgressIndicator(),
+                                errorWidget: (context, url, error) =>
+                                    Icon(Icons.error),
+                              ),
                             ),
                           ),
+                          title: Text(
+                            reward.nameEn,
+                            style: Theme.of(context).textTheme.button!.copyWith(
+                                  fontWeight: FontWeight.bold,
+                                  color: Theme.of(context).colorScheme.primary,
+                                ),
+                          ),
+                          subtitle: Text(
+                            "Points: ${reward.redeemPoints}",
+                            style: Theme.of(context).textTheme.caption!.copyWith(
+                                  fontWeight: FontWeight.bold,
+                                  color: Theme.of(context).colorScheme.primary,
+                                ),
+                          ),
                         ),
-                        title: Text(
-                          reward.nameEn,
-                          style: Theme.of(context).textTheme.button!.copyWith(
-                                fontWeight: FontWeight.bold,
-                                color: Theme.of(context).colorScheme.primary,
-                              ),
-                        ),
-                        subtitle: Text("Points: ${reward.redeemPoints}",style: Theme
-                            .of(context)
-                            .textTheme
-                            .caption!
-                            .copyWith(
-                          fontWeight: FontWeight.bold,
-                          color:
-                          Theme
-                              .of(context)
-                              .colorScheme
-                              .primary,),),
                       ),
                     );
                   });

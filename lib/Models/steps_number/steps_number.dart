@@ -3,10 +3,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-part 'step_count.g.dart';
+part 'steps_number.g.dart';
 
 @JsonSerializable()
-class StepCount {
+class StepsNumber {
   @JsonKey(name: 'at_step')
   double atStep;
   @JsonKey(name: 'timestamp',toJson: millisecondsToTimestamp, fromJson: timestampToMilliseconds)
@@ -17,11 +17,11 @@ class StepCount {
   String? description;
 
 
-  factory StepCount.fromJson(Map<String, dynamic> json) => _$StepCountFromJson(json);
+  factory StepsNumber.fromJson(Map<String, dynamic> json) => _$StepsNumberFromJson(json);
 
-  Map<String, dynamic> toJson() => _$StepCountToJson(this);
+  Map<String, dynamic> toJson() => _$StepsNumberToJson(this);
 
-  StepCount(this.atStep, this.timestamp, this.pointsAdded,this.description);
+  StepsNumber(this.atStep, this.timestamp, this.pointsAdded,this.description);
 
   static Timestamp millisecondsToTimestamp(int milliseconds) {
     return Timestamp.fromMillisecondsSinceEpoch(milliseconds);

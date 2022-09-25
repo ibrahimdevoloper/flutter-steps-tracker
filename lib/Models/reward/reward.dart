@@ -6,6 +6,8 @@ part 'reward.g.dart';
 
 @JsonSerializable()
 class Reward {
+  @JsonKey(ignore: true)
+  String? id;
   @JsonKey(name: 'brand')
   String brand;
   @JsonKey(name: 'image_url')

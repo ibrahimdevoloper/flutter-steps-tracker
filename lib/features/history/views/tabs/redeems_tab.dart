@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_steps_tracker/features/history/controller.dart';
+import 'package:get/get.dart';
 
 class RedeemsTab extends StatelessWidget {
-  const RedeemsTab({Key? key}) : super(key: key);
-
+  RedeemsTab({Key? key}) : super(key: key);
+  final HistoryController controller = Get.find();
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
