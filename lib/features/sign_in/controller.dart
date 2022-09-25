@@ -42,7 +42,6 @@ class SignInController extends GetxController {
           _isloading=true;
           update();
           final userCredential = await _auth.signInAnonymously();
-          //TODO: USERDATA CLASS
           var userDoc = await _db.collection("users").add({
             "user_id":userCredential.user?.uid,
             "name":_username,

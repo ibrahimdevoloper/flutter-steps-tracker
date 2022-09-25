@@ -19,18 +19,27 @@ Future<void> main() async {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
         title: 'Flutter Demo',
-        theme: ThemeData(
-            // primaryColor: Color(0xFF5BB318),
+        darkTheme: ThemeData(
+            brightness: Brightness.dark,
             colorScheme: ColorScheme.fromSwatch().copyWith(
+              brightness: Brightness.dark,
+              primary: Color(0xFF5BB318),
+              secondary: Color(0xFFEAE509),
+            ),
+            textTheme: GoogleFonts.cairoTextTheme(),),
+        theme: ThemeData(
+            brightness: Brightness.light,
+            colorScheme: ColorScheme.fromSwatch().copyWith(
+              brightness: Brightness.light,
               primary: Color(0xFF5BB318),
               secondary: Color(0xFFEAE509),
             ),
             textTheme: GoogleFonts.cairoTextTheme()),
+
         home: FutureBuilder<List>(
           future: Future.wait([
             Firebase.initializeApp(

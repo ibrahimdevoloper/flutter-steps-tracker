@@ -17,6 +17,8 @@ class HistoryController extends GetxController {
 
   HistoryController(){
     _db = FirebaseFirestore.instance;
+    getRedeems();
+    getStepsNumber();
   }
 
   getRedeems() async {
@@ -44,23 +46,23 @@ class HistoryController extends GetxController {
 
   getStepsNumber() async {
     try {
-      _isRedeemLoading = true;
+      _isStepsNumberLoading = true;
       update();
       _userid = pref.getString(ProjectConstants.userId)!;
-      var redeemsDocs = await _db
+      var stepsNumberDocs = await _db
           .collection("users")
           .doc(_userid)
           .collection("steps_record")
           .get();
-      for (var redeemsDoc in redeemsDocs.docs) {
-        var reward = Redeem.fromJson(redeemsDoc.data());
-        _redeems.add(reward);
+      for (var stepsNumbersDoc in stepsNumberDocs.docs) {
+        var stepsNumber = StepsNumber.fromJson(stepsNumbersDoc.data());
+        _stepsNumbers.add(stepsNumber);
       }
-      _isRedeemLoading = false;
+      _isStepsNumberLoading = false;
       update();
     } catch (e) {
       showErrorSnakebar("Error while getting data");
-      _isRedeemLoading = false;
+      _isStepsNumberLoading = false;
       update();
     }
   }
@@ -68,4 +70,8 @@ class HistoryController extends GetxController {
   List<Redeem> get redeems => _redeems;
 
   get isRedeemLoading => _isRedeemLoading;
+
+  List<StepsNumber> get stepsNumbers => _stepsNumbers;
+
+  get isStepsNumberLoading => _isStepsNumberLoading;
 }

@@ -6,7 +6,6 @@ class SplashPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //TODO: Put Logo Image Here
     return Scaffold(
       body: Center(
         child: Column(

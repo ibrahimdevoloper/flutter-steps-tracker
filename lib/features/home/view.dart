@@ -17,6 +17,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
+          backgroundColor: Theme.of(context).colorScheme.primary,
           title: Text(
             "Steptiper",
             style: TextStyle(
@@ -61,8 +62,7 @@ class HomePage extends StatelessWidget {
                           borderRadius: BorderRadius.circular(16),
                           color: Theme.of(context)
                               .colorScheme
-                              .secondary
-                              .withOpacity(0.60),
+                              .secondary,
                         ),
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.center,
@@ -94,8 +94,7 @@ class HomePage extends StatelessWidget {
                                                 fontWeight: FontWeight.bold,
                                                 color: Theme.of(context)
                                                     .colorScheme
-                                                    .secondary
-                                                    .withOpacity(0.90),
+                                                    .secondary,
                                               ),
                                         ),
                                       ],
@@ -132,8 +131,7 @@ class HomePage extends StatelessWidget {
                                                   fontWeight: FontWeight.bold,
                                                   color: Theme.of(context)
                                                       .colorScheme
-                                                      .secondary
-                                                      .withOpacity(0.90),
+                                                      .secondary,
                                                 ),
                                           );
                                         }),
@@ -455,7 +453,7 @@ class HomePage extends StatelessWidget {
                                     textCancel: "Cancel",
                                       cancelTextColor: Theme.of(context).colorScheme.primary,
                                     onConfirm: (){
-                                      //TODO: Redeem points
+                                      controller.redeemPoints(reward);
                                       Get.back();
                                     },
                                     onCancel: (){

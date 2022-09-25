@@ -14,6 +14,7 @@ class HistoryPage extends StatelessWidget {
       length: 2,
       child: Scaffold(
         appBar: AppBar(
+          backgroundColor: Theme.of(context).colorScheme.primary,
           title: const Text("History"),
           bottom: const TabBar(
             indicatorColor: Colors.yellowAccent,

@@ -11,6 +11,7 @@ class OurRewardsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Theme.of(context).colorScheme.primary,
         title: Text("Our Rewards"),
       ),
       body: GetBuilder<OurRewardsController>(
@@ -37,7 +38,7 @@ class OurRewardsPage extends StatelessWidget {
                               textCancel: "Cancel",
                               cancelTextColor: Theme.of(context).colorScheme.primary,
                               onConfirm: (){
-                                //TODO: Redeem points
+                                controller.redeemPoints(reward);
                                 Get.back();
                               },
                               onCancel: (){
