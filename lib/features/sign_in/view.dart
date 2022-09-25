@@ -92,6 +92,12 @@ class SignInPage extends StatelessWidget {
                             ),
                             hintText: 'Enter your name',
                           ),
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Theme
+                                  .of(context)
+                                  .colorScheme
+                                  .primary),
                           onChanged: (value){
                             controller.username=value;
                           },

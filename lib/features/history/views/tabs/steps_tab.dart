@@ -1,6 +1,6 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_steps_tracker/features/history/controller.dart';
+import 'package:flutter_steps_tracker/functions/date_formatter.dart';
 import 'package:get/get.dart';
 
 class StepsTab extends StatelessWidget {
@@ -10,7 +10,7 @@ class StepsTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<HistoryController>(builder: (controller) {
-      if (controller.isRedeemLoading) {
+      if (controller.isStepsNumberLoading) {
         return const Center(
           child: CircularProgressIndicator(),
         );
@@ -26,7 +26,7 @@ class StepsTab extends StatelessWidget {
                       const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
                   child: ListTile(
                     title: Text(
-                      "${stepsNumber.pointsAdded} Points were added at ${stepsNumber.atStep} on ${Timestamp.fromMillisecondsSinceEpoch(stepsNumber.timestamp)}",
+                      "${stepsNumber.pointsAdded} Points were added at ${stepsNumber.atStep} on ${dateFormater(DateTime.fromMillisecondsSinceEpoch(stepsNumber.timestamp))}",
                       style: Theme.of(context).textTheme.button!.copyWith(
                             fontWeight: FontWeight.bold,
                             color: Theme.of(context).colorScheme.primary,

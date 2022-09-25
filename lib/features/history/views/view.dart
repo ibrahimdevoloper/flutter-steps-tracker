@@ -19,8 +19,8 @@ class HistoryPage extends StatelessWidget {
           bottom: const TabBar(
             indicatorColor: Colors.yellowAccent,
             tabs: [
-              Tab(text: "Vacations",),
-              Tab(text: "Overtime",),
+              Tab(text: "Redeems",),
+              Tab(text: "Step History",),
             ],
           ),
         ),

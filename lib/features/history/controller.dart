@@ -12,10 +12,10 @@ class HistoryController extends GetxController {
   SharedPreferences pref = Get.find();
   late FirebaseFirestore _db;
   late String _userid;
-  List<Redeem> _redeems=[];
-  List<StepsNumber> _stepsNumbers=[];
+  List<Redeem> _redeems = [];
+  List<StepsNumber> _stepsNumbers = [];
 
-  HistoryController(){
+  HistoryController() {
     _db = FirebaseFirestore.instance;
     getRedeems();
     getStepsNumber();
@@ -29,7 +29,7 @@ class HistoryController extends GetxController {
       var redeemsDocs = await _db
           .collection("users")
           .doc(_userid)
-          .collection("rewards")
+          .collection("redeems")
           .get();
       for (var redeemsDoc in redeemsDocs.docs) {
         var reward = Redeem.fromJson(redeemsDoc.data());
@@ -53,6 +53,7 @@ class HistoryController extends GetxController {
           .collection("users")
           .doc(_userid)
           .collection("steps_record")
+          .orderBy("at_step", descending: true)
           .get();
       for (var stepsNumbersDoc in stepsNumberDocs.docs) {
         var stepsNumber = StepsNumber.fromJson(stepsNumbersDoc.data());

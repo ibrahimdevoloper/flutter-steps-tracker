@@ -63,9 +63,10 @@ class HomeController extends GetxController {
       var userData = this._userData;
       userData!.stepCount = stepCount.toDouble();
       userData.totalPoints = healthPoints.toDouble();
+      userData.remainingPoints = userData.totalPoints -  userData.redeemedPoints;
       await _db.collection("users").doc(_userid).update(userData.toJson());
       var stepsNumber = StepsNumber(stepCount.toDouble(),
-          Timestamp.now().millisecondsSinceEpoch, 1, "Point gained from walking");
+          Timestamp.now().millisecondsSinceEpoch, 1, null);
       await _db
           .collection("users")
           .doc(_userid)
