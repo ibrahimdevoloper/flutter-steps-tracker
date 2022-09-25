@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_steps_tracker/features/home/view.dart';
 import 'package:flutter_steps_tracker/features/splash/view.dart';
 import 'package:flutter_steps_tracker/utilities/sound_service.dart';
+import 'package:flutter_steps_tracker/utilities/translation.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -23,7 +24,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
         title: 'Flutter Demo',
-
+        translations: Messages(),
+        locale: Get.deviceLocale,
         darkTheme: ThemeData(
             brightness: Brightness.dark,
             colorScheme: ColorScheme.fromSwatch().copyWith(

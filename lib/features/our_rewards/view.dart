@@ -12,7 +12,7 @@ class OurRewardsPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.primary,
-        title: Text("Our Rewards"),
+        title: Text("Our Rewards".tr),
       ),
       body: GetBuilder<OurRewardsController>(
           init: controller,
@@ -31,19 +31,21 @@ class OurRewardsPage extends StatelessWidget {
                         onTap: (){
                           Get.defaultDialog(
                               radius: 16,
-                              title: "Redeem from ${reward.brand}",
-                              content: Text("Do you want to redeem ${reward.redeemPoints} for ${reward.nameEn}?"),
-                              textConfirm: "Redeem",
+                              title: "Redeem from brand".trParams(
+                                {"brand":reward.brand}
+                              ),
+                              content: Text("Do you want to redeem redeemPoints for name?".trParams( {
+                                "redeemPoints": reward.redeemPoints.toString(),
+                                "name":Get.locale!.languageCode.compareTo("ar")==0?reward.nameAr:reward.nameEn
+                              })),
+                              textConfirm: "Redeem".tr,
                               confirmTextColor: Theme.of(context).colorScheme.primary,
-                              textCancel: "Cancel",
+                              textCancel: "Cancel".tr,
                               cancelTextColor: Theme.of(context).colorScheme.primary,
                               onConfirm: (){
                                 controller.redeemPoints(reward);
                                 Get.back();
                               },
-                              onCancel: (){
-                                Get.back();
-                              }
                           );
                         },
                         child: ListTile(
@@ -61,14 +63,16 @@ class OurRewardsPage extends StatelessWidget {
                             ),
                           ),
                           title: Text(
-                            reward.nameEn,
+                            Get.locale!.languageCode.compareTo("ar")==0?reward.nameAr:reward.nameEn,
                             style: Theme.of(context).textTheme.button!.copyWith(
                                   fontWeight: FontWeight.bold,
                                   color: Theme.of(context).colorScheme.primary,
                                 ),
                           ),
                           subtitle: Text(
-                            "Points: ${reward.redeemPoints}",
+                            "Points: redeemPoints".trParams(
+                                {"redeemPoints":reward.redeemPoints.toString()}
+                            ),
                             style: Theme.of(context).textTheme.caption!.copyWith(
                                   fontWeight: FontWeight.bold,
                                   color: Theme.of(context).colorScheme.primary,

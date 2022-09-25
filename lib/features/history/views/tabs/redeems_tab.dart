@@ -35,14 +35,17 @@ class RedeemsTab extends StatelessWidget {
                     ),
                   ),
                   title: Text(
-                    redeem.nameEn,
+                    Get.locale!.languageCode.compareTo("ar") == 0
+                        ? redeem.nameAr
+                        : redeem.nameEn,
                     style: Theme.of(context).textTheme.button!.copyWith(
                           fontWeight: FontWeight.bold,
                           color: Theme.of(context).colorScheme.primary,
                         ),
                   ),
                   subtitle: Text(
-                    "Points: ${redeem.redeemPoints}",
+                    "Points: redeemPoints".trParams(
+                        {"redeemPoints": redeem.redeemPoints.toString()}),
                     style: Theme.of(context).textTheme.caption!.copyWith(
                           fontWeight: FontWeight.bold,
                           color: Theme.of(context).colorScheme.primary,

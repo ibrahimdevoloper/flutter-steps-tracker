@@ -27,8 +27,8 @@ class OurRewardsController extends GetxController {
     var userData = UserData.fromJson(userDoc.data()!);
     var remainingPoints = userData.remainingPoints.toInt();
     if ((remainingPoints - reward.redeemPoints) >= 0) {
-      var redeem = Redeem(reward.id??reward.brand, reward.brand, reward.imageUrl,
-          reward.nameAr, reward.nameEn, reward.redeemPoints);
+      var redeem = Redeem(reward.id ?? reward.brand, reward.brand,
+          reward.imageUrl, reward.nameAr, reward.nameEn, reward.redeemPoints);
       userData.redeemedPoints += reward.redeemPoints;
       userData.remainingPoints = remainingPoints - reward.redeemPoints;
       await _db.collection("users").doc(_userid).update(userData.toJson());
@@ -37,9 +37,10 @@ class OurRewardsController extends GetxController {
           .doc(_userid)
           .collection('redeems')
           .add(redeem.toJson());
-      showNotificationSnakebar("Redeem Successful");
-    }else{
-      showErrorSnakebar("You don't have enough points",title: "Redeem Unsuccessful");
+      showNotificationSnakebar("Redeem Successful".tr);
+    } else {
+      showErrorSnakebar("You don't have enough points".tr,
+          title: "Redeem Unsuccessful".tr);
     }
   }
 
@@ -56,7 +57,7 @@ class OurRewardsController extends GetxController {
       _isloading = false;
       update();
     } catch (e) {
-      showErrorSnakebar("Error while getting data");
+      showErrorSnakebar("Error while getting data".tr);
       _isloading = false;
       update();
     }

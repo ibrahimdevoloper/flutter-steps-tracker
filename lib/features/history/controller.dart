@@ -38,7 +38,7 @@ class HistoryController extends GetxController {
       _isRedeemLoading = false;
       update();
     } catch (e) {
-      showErrorSnakebar("Error while getting data");
+      showErrorSnakebar("Error while getting data".tr);
       _isRedeemLoading = false;
       update();
     }
@@ -62,7 +62,7 @@ class HistoryController extends GetxController {
       _isStepsNumberLoading = false;
       update();
     } catch (e) {
-      showErrorSnakebar("Error while getting data");
+      showErrorSnakebar("Error while getting data".tr);
       _isStepsNumberLoading = false;
       update();
     }

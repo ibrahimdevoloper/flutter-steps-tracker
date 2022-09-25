@@ -11,7 +11,7 @@ class LeaderboardPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.primary,
-        title: Text("Leaderboard"),
+        title: Text("Leaderboard".tr),
       ),
       body: GetBuilder<LeaderboardController>(
           init:controller,
@@ -81,7 +81,9 @@ class LeaderboardPage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    "Total steps: ${user.stepCount}",
+                    "Total steps: stepCount".trParams(
+                      {"stepCount":user.stepCount.toString()}
+                    ),
                     style: Theme
                         .of(context)
                         .textTheme
@@ -95,7 +97,9 @@ class LeaderboardPage extends StatelessWidget {
                           .withOpacity(0.7),
                     ),
                   ), Text(
-                    "Redeemed points: ${user.redeemedPoints}",
+                    "Redeemed points: redeemedPoints".trParams(
+                        {"redeemedPoints":user.redeemedPoints.toString()}
+                    ),
                     style: Theme
                         .of(context)
                         .textTheme

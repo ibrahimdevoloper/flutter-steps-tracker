@@ -14,7 +14,7 @@ class SignInPage extends StatelessWidget {
         appBar: AppBar(
           centerTitle: true,
           title: Text(
-            "Welcome",
+            "Welcome".tr,
             style: TextStyle(
                 fontWeight: FontWeight.bold,
                 color: Theme
@@ -60,7 +60,7 @@ class SignInPage extends StatelessWidget {
                       ],
                     ),
                     Text(
-                      "TIP YOURSELF WITH YOUR STEPS",
+                      "TIP YOURSELF WITH YOUR STEPS".tr,
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color: Theme
@@ -90,7 +90,7 @@ class SignInPage extends StatelessWidget {
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(16),
                             ),
-                            hintText: 'Enter your name',
+                            hintText: "Enter your name".tr,
                           ),
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
@@ -110,9 +110,9 @@ class SignInPage extends StatelessWidget {
                             CircularProgressIndicator():
                         ElevatedButton(
                           onPressed: () {
-                            controller.SignIn();
+                            controller.signIn();
                           },
-                          child: Text("Enter"),
+                          child: Text("Enter".tr),
                         );
                       }),
                     ],

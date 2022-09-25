@@ -26,7 +26,11 @@ class StepsTab extends StatelessWidget {
                       const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
                   child: ListTile(
                     title: Text(
-                      "${stepsNumber.pointsAdded} Points were added at ${stepsNumber.atStep} on ${dateFormater(DateTime.fromMillisecondsSinceEpoch(stepsNumber.timestamp))}",
+                      "pointsAdded Points were added at step on date".trParams({
+                        "pointsAdded":stepsNumber.pointsAdded.toString(),
+                        "step":stepsNumber.atStep.toString(),
+                        "date":dateFormater(DateTime.fromMillisecondsSinceEpoch(stepsNumber.timestamp))
+                      }),
                       style: Theme.of(context).textTheme.button!.copyWith(
                             fontWeight: FontWeight.bold,
                             color: Theme.of(context).colorScheme.primary,

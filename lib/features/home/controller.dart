@@ -73,7 +73,6 @@ class HomeController extends GetxController {
           .collection("steps_record")
           .add(stepsNumber.toJson());
     } catch (e) {
-      showErrorSnakebar("Error while sending data");
       _isloading = false;
       update();
     }
@@ -81,8 +80,8 @@ class HomeController extends GetxController {
 
   void addNewPointSnakebar() {
     Get.snackbar(
-      "New Point",
-      "New point were added",
+      "New Point".tr,
+      "New point were added".tr,
       snackPosition: SnackPosition.TOP,
       backgroundColor: Colors.black38,
       colorText: Colors.white,
@@ -108,10 +107,10 @@ class HomeController extends GetxController {
           .doc(_userid)
           .collection('redeems')
           .add(redeem.toJson());
-      showNotificationSnakebar("Redeem Successful");
+      showNotificationSnakebar("Redeem Successful".tr);
     } else {
-      showErrorSnakebar("You don't have enough points",
-          title: "Redeem Unsuccessful");
+      showErrorSnakebar("You don't have enough points".tr,
+          title: "Redeem Unsuccessful".tr);
     }
   }
 
@@ -138,9 +137,8 @@ class HomeController extends GetxController {
       _isloading = false;
       update([main]);
       incrementSteps();
-      showNotificationSnakebar("Sign in Success");
     } catch (e) {
-      showErrorSnakebar("Error while getting data");
+      showErrorSnakebar("Error while getting data".tr);
       _isloading = false;
       update([main]);
     }

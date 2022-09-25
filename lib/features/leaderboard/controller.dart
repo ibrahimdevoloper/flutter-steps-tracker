@@ -28,7 +28,7 @@ class LeaderboardController extends GetxController {
       _isloading = false;
       update();
     } catch (e) {
-      showErrorSnakebar("Error while getting data");
+      showErrorSnakebar("Error while getting data".tr);
       _isloading = false;
       update();
     }

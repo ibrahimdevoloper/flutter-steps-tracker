@@ -63,50 +63,74 @@ class HomePage extends StatelessWidget {
               ),
               ListTile(
                 title: Text(
-                  "Rewards",
+                  "Rewards".tr,
                   style: Theme.of(context).textTheme.button!.copyWith(
-                    fontWeight: FontWeight.bold,
-                    color: Theme.of(context).colorScheme.primary,
-                  ),
+                        fontWeight: FontWeight.bold,
+                        color: Theme.of(context).colorScheme.primary,
+                      ),
                 ),
-                onTap: (){
-                  Get.to(()=>OurRewardsPage());
+                onTap: () {
+                  Get.to(() => OurRewardsPage());
                 },
               ),
               ListTile(
                 title: Text(
-                  "Leaderboard",
+                  "Leaderboard".tr,
                   style: Theme.of(context).textTheme.button!.copyWith(
-                    fontWeight: FontWeight.bold,
-                    color: Theme.of(context).colorScheme.primary,
-                  ),
+                        fontWeight: FontWeight.bold,
+                        color: Theme.of(context).colorScheme.primary,
+                      ),
                 ),
-                onTap: (){
-                  Get.to(()=>LeaderboardPage());
+                onTap: () {
+                  Get.to(() => LeaderboardPage());
                 },
-              ), ListTile(
+              ),
+              ListTile(
                 title: Text(
-                  "History",
+                  "History".tr,
                   style: Theme.of(context).textTheme.button!.copyWith(
-                    fontWeight: FontWeight.bold,
-                    color: Theme.of(context).colorScheme.primary,
-                  ),
+                        fontWeight: FontWeight.bold,
+                        color: Theme.of(context).colorScheme.primary,
+                      ),
                 ),
-                onTap: (){
-                  Get.to(()=>HistoryPage());
+                onTap: () {
+                  Get.to(() => HistoryPage());
                 },
               ),
               SwitchListTile(
                 title: Text(
-                  Get.isDarkMode?"Dark Mode":"Light Mode",
+                  Get.isDarkMode ? "Dark Mode".tr : "Light Mode".tr,
                   style: Theme.of(context).textTheme.button!.copyWith(
-                    fontWeight: FontWeight.bold,
-                    color: Theme.of(context).colorScheme.primary,
-                  ),
+                        fontWeight: FontWeight.bold,
+                        color: Theme.of(context).colorScheme.primary,
+                      ),
                 ),
-                value: Get.isDarkMode, onChanged: (value){
-                Get.changeThemeMode( Get.isDarkMode?ThemeMode.light:ThemeMode.dark);
-              },),
+                activeColor: Theme.of(context).colorScheme.primary,
+                value: Get.isDarkMode,
+                onChanged: (value) {
+                  Get.changeThemeMode(
+                      Get.isDarkMode ? ThemeMode.light : ThemeMode.dark);
+                },
+              ),
+              SwitchListTile(
+                title: Text(
+                  Get.locale!.languageCode.compareTo("ar") == 0
+                      ? "عربي"
+                      : "English",
+                  style: Theme.of(context).textTheme.button!.copyWith(
+                        fontWeight: FontWeight.bold,
+                        color: Theme.of(context).colorScheme.primary,
+                      ),
+                ),
+                activeColor: Theme.of(context).colorScheme.primary,
+                value: Get.locale!.languageCode.compareTo("ar") == 0,
+                onChanged: (value) {
+                  var locale = Get.locale!.languageCode.compareTo("ar") == 0
+                      ? Locale('en')
+                      : Locale('ar');
+                  Get.updateLocale(locale);
+                },
+              ),
             ],
           ),
         ),
@@ -126,7 +150,8 @@ class HomePage extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "Hi, ${controller.userData.name}",
+                        "Hi, name"
+                            .trParams({"name": controller.userData.name}),
                         style: Theme.of(context).textTheme.headline5!.copyWith(
                               fontWeight: FontWeight.bold,
                               color: Theme.of(context).colorScheme.primary,
@@ -160,7 +185,7 @@ class HomePage extends StatelessWidget {
                                           height: 20,
                                         ),
                                         Text(
-                                          "Step Count",
+                                          "Step Count".tr,
                                           style: Theme.of(context)
                                               .textTheme
                                               .headline6!
@@ -227,7 +252,7 @@ class HomePage extends StatelessWidget {
                                             .primary,
                                       ),
                                       Text(
-                                        "HP Count",
+                                        "HP Count".tr,
                                         style: Theme.of(context)
                                             .textTheme
                                             .headline6!
@@ -283,7 +308,7 @@ class HomePage extends StatelessWidget {
                       ),
                       Center(
                         child: Text(
-                          "20 Steps = 1 Heath Point (HP)",
+                          "20 Steps = 1 Heath Point (HP)".tr,
                           style: Theme.of(context).textTheme.caption!.copyWith(
                                 fontWeight: FontWeight.bold,
                                 color: Theme.of(context)
@@ -297,7 +322,7 @@ class HomePage extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            "Top 3",
+                            "Top 3".tr,
                             style: Theme.of(context)
                                 .textTheme
                                 .headline5!
@@ -311,7 +336,7 @@ class HomePage extends StatelessWidget {
                               Get.to(() => LeaderboardPage());
                             },
                             child: Text(
-                              "See more",
+                              "See more".tr,
                               style: Theme.of(context)
                                   .textTheme
                                   .button!
@@ -362,7 +387,10 @@ class HomePage extends StatelessWidget {
                                 ),
                           ),
                           subtitle: Text(
-                            "Step Count: ${controller.users[0].stepCount}",
+                            "Step Count: stepCount".trParams({
+                              "stepCount":
+                                  controller.users[0].stepCount.toString(),
+                            }),
                             style:
                                 Theme.of(context).textTheme.caption!.copyWith(
                                       fontWeight: FontWeight.bold,
@@ -412,7 +440,10 @@ class HomePage extends StatelessWidget {
                                 ),
                           ),
                           subtitle: Text(
-                            "Step Count: ${controller.users[1].stepCount}",
+                            "Step Count: stepCount".trParams({
+                              "stepCount":
+                                  controller.users[1].stepCount.toString(),
+                            }),
                             style:
                                 Theme.of(context).textTheme.caption!.copyWith(
                                       fontWeight: FontWeight.bold,
@@ -462,7 +493,10 @@ class HomePage extends StatelessWidget {
                                 ),
                           ),
                           subtitle: Text(
-                            "Step Count: ${controller.users[2].stepCount}",
+                            "Step Count: stepCount".trParams({
+                              "stepCount":
+                                  controller.users[2].stepCount.toString(),
+                            }),
                             style:
                                 Theme.of(context).textTheme.caption!.copyWith(
                                       fontWeight: FontWeight.bold,
@@ -478,7 +512,7 @@ class HomePage extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            "Redeem Rewards",
+                            "Redeem Rewards".tr,
                             style: Theme.of(context)
                                 .textTheme
                                 .headline5!
@@ -492,7 +526,7 @@ class HomePage extends StatelessWidget {
                               Get.to(() => OurRewardsPage());
                             },
                             child: Text(
-                              "See more",
+                              "See more".tr,
                               style: Theme.of(context)
                                   .textTheme
                                   .button!
@@ -519,23 +553,31 @@ class HomePage extends StatelessWidget {
                               child: InkWell(
                                 onTap: () {
                                   Get.defaultDialog(
-                                      radius: 16,
-                                      title: "Redeem from ${reward.brand}",
-                                      content: Text(
-                                          "Do you want to redeem ${reward.redeemPoints} for ${reward.nameEn}?"),
-                                      textConfirm: "Redeem",
-                                      confirmTextColor:
-                                          Theme.of(context).colorScheme.primary,
-                                      textCancel: "Cancel",
-                                      cancelTextColor:
-                                          Theme.of(context).colorScheme.primary,
-                                      onConfirm: () {
-                                        controller.redeemPoints(reward);
-                                        Get.back();
-                                      },
-                                      onCancel: () {
-                                        Get.back();
-                                      });
+                                    radius: 16,
+                                    title: "Redeem from brand"
+                                        .trParams({"brand": reward.brand}),
+                                    content: Text(
+                                        "Do you want to redeem redeemPoints for name?"
+                                            .trParams({
+                                      "redeemPoints":
+                                          reward.redeemPoints.toString(),
+                                      "name": Get.locale!.languageCode
+                                                  .compareTo("ar") ==
+                                              0
+                                          ? reward.nameAr
+                                          : reward.nameEn
+                                    })),
+                                    textConfirm: "Redeem".tr,
+                                    confirmTextColor:
+                                        Theme.of(context).colorScheme.primary,
+                                    textCancel: "Cancel".tr,
+                                    cancelTextColor:
+                                        Theme.of(context).colorScheme.primary,
+                                    onConfirm: () {
+                                      controller.redeemPoints(reward);
+                                      Get.back();
+                                    },
+                                  );
                                 },
                                 child: AspectRatio(
                                   aspectRatio: 0.7,
@@ -553,7 +595,11 @@ class HomePage extends StatelessWidget {
                                               Icon(Icons.error),
                                         ),
                                         Text(
-                                          reward.nameEn,
+                                          Get.locale!.languageCode
+                                                      .compareTo("ar") ==
+                                                  0
+                                              ? reward.nameAr
+                                              : reward.nameEn,
                                           overflow: TextOverflow.fade,
                                           style: Theme.of(context)
                                               .textTheme

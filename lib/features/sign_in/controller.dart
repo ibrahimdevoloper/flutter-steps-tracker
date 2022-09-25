@@ -31,11 +31,7 @@ class SignInController extends GetxController {
     }
   }
 
-  requestPermission(){
-
-  }
-
-  SignIn() async {
+  signIn() async {
     try {
       if(validator()) {
         if (await Permission.activityRecognition.request().isGranted) {
@@ -58,22 +54,22 @@ class SignInController extends GetxController {
           _isloading=false;
           update();
           Get.off(() => HomePage());
-          showNotificationSnakebar("Sign in Success");
+          showNotificationSnakebar("Sign in Success".tr);
         }else {
-          showErrorSnakebar("Permission Not Accepted");
+          showErrorSnakebar("Permission Not Accepted".tr);
         }
       }else{
         _isloading=false;
         update();
-        showErrorSnakebar("Username is empty");
+        showErrorSnakebar("Username is empty".tr);
       }
     } on FirebaseAuthException catch (e) {
       switch (e.code) {
         case "operation-not-allowed":
-          showErrorSnakebar("Auth service is not provided.");
+          showErrorSnakebar("Auth service is not provided.".tr);
           break;
         default:
-          showErrorSnakebar("Unknown error.");
+          showErrorSnakebar("Unknown error.".tr);
       }
       _isloading=false;
       update();
