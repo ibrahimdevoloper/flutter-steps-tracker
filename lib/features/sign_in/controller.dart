@@ -43,7 +43,7 @@ class SignInController extends GetxController {
           update();
           final userCredential = await _auth.signInAnonymously();
           //TODO: USERDATA CLASS
-          _db.collection("users").add({
+          var userDoc = await _db.collection("users").add({
             "user_id":userCredential.user?.uid,
             "name":_username,
             "created_at":Timestamp.now(),
@@ -54,7 +54,7 @@ class SignInController extends GetxController {
             "total_points":0,
           });
           SharedPreferences pref = Get.find();
-          pref.setString(ProjectConstants.userId, userCredential.user!.uid);
+          pref.setString(ProjectConstants.userId, userDoc.id);
           pref.setString(ProjectConstants.username, _username!);
           _isloading=false;
           update();

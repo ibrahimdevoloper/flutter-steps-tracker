@@ -100,8 +100,8 @@ class HomeController extends GetxController {
       for (var rewardDoc in rewardDocs.docs) {
         _rewards.add(Reward.fromJson(rewardDoc.data()));
       }
-      var userDoc = await _db.collection("users").limit(1).where("user_id",isEqualTo: _userid).get();
-      _userData = UserData.fromJson(userDoc.docs.first.data());
+      var userDoc = await _db.collection("users").doc(_userid).get();
+      _userData = UserData.fromJson(userDoc.data()!);
       _healthPoints = _userData!.totalPoints.toInt();
       _isloading = false;
       update([main]);
