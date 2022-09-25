@@ -23,6 +23,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
         title: 'Flutter Demo',
+
         darkTheme: ThemeData(
             brightness: Brightness.dark,
             colorScheme: ColorScheme.fromSwatch().copyWith(

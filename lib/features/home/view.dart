@@ -5,6 +5,7 @@ import 'package:flutter_steps_tracker/features/leaderboard/view.dart';
 import 'package:flutter_steps_tracker/features/our_rewards/view.dart';
 import 'package:get/get.dart';
 import 'package:odometer/odometer.dart';
+import 'package:simple_gradient_text/simple_gradient_text.dart';
 
 import 'controller.dart';
 
@@ -33,7 +34,82 @@ class HomePage extends StatelessWidget {
                 icon: Icon(Icons.calendar_today_rounded))
           ],
         ),
-        //TODO: put drawer
+        drawer: Drawer(
+          child: Column(
+            children: [
+              DrawerHeader(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Image.asset(
+                      "assets/images/icon.png",
+                      height: 40,
+                    ),
+                    SizedBox(
+                      height: 8,
+                    ),
+                    GradientText(
+                      "Steptiper",
+                      style: TextStyle(
+                          fontSize: 40.0, fontWeight: FontWeight.bold),
+                      colors: [
+                        Theme.of(context).colorScheme.primary,
+                        Theme.of(context).colorScheme.secondary,
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+              ListTile(
+                title: Text(
+                  "Rewards",
+                  style: Theme.of(context).textTheme.button!.copyWith(
+                    fontWeight: FontWeight.bold,
+                    color: Theme.of(context).colorScheme.primary,
+                  ),
+                ),
+                onTap: (){
+                  Get.to(()=>OurRewardsPage());
+                },
+              ),
+              ListTile(
+                title: Text(
+                  "Leaderboard",
+                  style: Theme.of(context).textTheme.button!.copyWith(
+                    fontWeight: FontWeight.bold,
+                    color: Theme.of(context).colorScheme.primary,
+                  ),
+                ),
+                onTap: (){
+                  Get.to(()=>LeaderboardPage());
+                },
+              ), ListTile(
+                title: Text(
+                  "History",
+                  style: Theme.of(context).textTheme.button!.copyWith(
+                    fontWeight: FontWeight.bold,
+                    color: Theme.of(context).colorScheme.primary,
+                  ),
+                ),
+                onTap: (){
+                  Get.to(()=>HistoryPage());
+                },
+              ),
+              SwitchListTile(
+                title: Text(
+                  Get.isDarkMode?"Dark Mode":"Light Mode",
+                  style: Theme.of(context).textTheme.button!.copyWith(
+                    fontWeight: FontWeight.bold,
+                    color: Theme.of(context).colorScheme.primary,
+                  ),
+                ),
+                value: Get.isDarkMode, onChanged: (value){
+                Get.changeThemeMode( Get.isDarkMode?ThemeMode.light:ThemeMode.dark);
+              },),
+            ],
+          ),
+        ),
         body: GetBuilder<HomeController>(
             init: controller,
             id: HomeController.main,
@@ -60,9 +136,7 @@ class HomePage extends StatelessWidget {
                         height: 220,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(16),
-                          color: Theme.of(context)
-                              .colorScheme
-                              .secondary,
+                          color: Theme.of(context).colorScheme.secondary,
                         ),
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.center,
@@ -443,23 +517,25 @@ class HomePage extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(16.0),
                               ),
                               child: InkWell(
-                                onTap: (){
+                                onTap: () {
                                   Get.defaultDialog(
-                                    radius: 16,
-                                    title: "Redeem from ${reward.brand}",
-                                    content: Text("Do you want to redeem ${reward.redeemPoints} for ${reward.nameEn}?"),
-                                    textConfirm: "Redeem",
-                                    confirmTextColor: Theme.of(context).colorScheme.primary,
-                                    textCancel: "Cancel",
-                                      cancelTextColor: Theme.of(context).colorScheme.primary,
-                                    onConfirm: (){
-                                      controller.redeemPoints(reward);
-                                      Get.back();
-                                    },
-                                    onCancel: (){
-                                      Get.back();
-                                    }
-                                  );
+                                      radius: 16,
+                                      title: "Redeem from ${reward.brand}",
+                                      content: Text(
+                                          "Do you want to redeem ${reward.redeemPoints} for ${reward.nameEn}?"),
+                                      textConfirm: "Redeem",
+                                      confirmTextColor:
+                                          Theme.of(context).colorScheme.primary,
+                                      textCancel: "Cancel",
+                                      cancelTextColor:
+                                          Theme.of(context).colorScheme.primary,
+                                      onConfirm: () {
+                                        controller.redeemPoints(reward);
+                                        Get.back();
+                                      },
+                                      onCancel: () {
+                                        Get.back();
+                                      });
                                 },
                                 child: AspectRatio(
                                   aspectRatio: 0.7,
