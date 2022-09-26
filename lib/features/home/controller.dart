@@ -40,6 +40,13 @@ class HomeController extends GetxController {
     _soundService = Get.find();
   }
 
+  @override
+  void onReady() {
+    var isDarkMode = pref.getBool(ProjectConstants.isDarkMode) ??
+        ThemeMode.system == ThemeMode.dark;
+    Get.changeThemeMode(isDarkMode ? ThemeMode.light : ThemeMode.dark);
+  }
+
   incrementSteps() {
     _pedometerService.pedestrianStatusStream.listen((event) {
       pedoStatus = event;
@@ -63,7 +70,7 @@ class HomeController extends GetxController {
       var userData = this._userData;
       userData!.stepCount = stepCount.toDouble();
       userData.totalPoints = healthPoints.toDouble();
-      userData.remainingPoints = userData.totalPoints -  userData.redeemedPoints;
+      userData.remainingPoints = userData.totalPoints - userData.redeemedPoints;
       await _db.collection("users").doc(_userid).update(userData.toJson());
       var stepsNumber = StepsNumber(stepCount.toDouble(),
           Timestamp.now().millisecondsSinceEpoch, 1, null);

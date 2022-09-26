@@ -63,10 +63,6 @@ class MyApp extends StatelessWidget {
               var locale = Locale(localeLang);
               Get.updateLocale(locale);
 
-              var isDarkMode = pref.getBool(ProjectConstants.isDarkMode)??Get.isDarkMode;
-              Get.changeThemeMode(
-                  isDarkMode? ThemeMode.light : ThemeMode.dark);
-
               var soundService = SoundService();
               Get.put(soundService);
 
