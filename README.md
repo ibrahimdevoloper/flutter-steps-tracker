@@ -31,6 +31,13 @@ A test for Mootawer(https://www.linkedin.com/company/mootawer-ltd/).
 8. [x] ✨ (Bonus!) Privacy and security (e.g., Firestore database rules).
 9. [x] ✨ (Bonus!) The project is [null-safe](https://flutter.dev/docs/null-safety).
 
+## Software requirements
+
+1. [x] **Flutter** for frontend, **Firebase** for backend, specifically **Cloud** **Firestore** for the DB.
+2. [x] For a lot of the functionalities mentioned above, **Firebase** **Cloud Functions** can be an easy solution to use. (Other server side functions can be used if you ran out of time)
+3. [x] The application support Android.
+4. [x] The application support iOS because the permissions and firebase configuration were added, but not tested on physical device.
+
 ## For contact
 E-mail: ibrahimarc@outllo.com
 Phone Number: +963959504146
