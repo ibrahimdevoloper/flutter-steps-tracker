@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_steps_tracker/features/history/views/view.dart';
 import 'package:flutter_steps_tracker/features/leaderboard/view.dart';
 import 'package:flutter_steps_tracker/features/our_rewards/view.dart';
+import 'package:flutter_steps_tracker/utilities/project_constants.dart';
 import 'package:get/get.dart';
 import 'package:odometer/odometer.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:simple_gradient_text/simple_gradient_text.dart';
 
 import 'controller.dart';
@@ -110,6 +112,8 @@ class HomePage extends StatelessWidget {
                 onChanged: (value) {
                   Get.changeThemeMode(
                       Get.isDarkMode ? ThemeMode.light : ThemeMode.dark);
+                  SharedPreferences pref = Get.find();
+                  pref.setBool(ProjectConstants.isDarkMode, Get.isDarkMode);
                 },
               ),
               SwitchListTile(
@@ -129,6 +133,8 @@ class HomePage extends StatelessWidget {
                       ? Locale('en')
                       : Locale('ar');
                   Get.updateLocale(locale);
+                  SharedPreferences pref = Get.find();
+                  pref.setString(ProjectConstants.isArabic, Get.locale!.languageCode.compareTo("ar") == 0?'ar':'en');
                 },
               ),
             ],

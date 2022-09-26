@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_steps_tracker/features/home/view.dart';
 import 'package:flutter_steps_tracker/features/splash/view.dart';
+import 'package:flutter_steps_tracker/utilities/project_constants.dart';
 import 'package:flutter_steps_tracker/utilities/sound_service.dart';
 import 'package:flutter_steps_tracker/utilities/translation.dart';
 import 'package:get/get.dart';
@@ -57,6 +58,14 @@ class MyApp extends StatelessWidget {
             } else if (snapshot.hasData) {
               SharedPreferences pref = snapshot.data![1];
               Get.put(pref);
+
+              var localeLang = pref.getString(ProjectConstants.isArabic)??"en";
+              var locale = Locale(localeLang);
+              Get.updateLocale(locale);
+
+              var isDarkMode = pref.getBool(ProjectConstants.isDarkMode)??Get.isDarkMode;
+              Get.changeThemeMode(
+                  isDarkMode? ThemeMode.light : ThemeMode.dark);
 
               var soundService = SoundService();
               Get.put(soundService);
