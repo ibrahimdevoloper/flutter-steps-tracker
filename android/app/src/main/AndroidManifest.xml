@@ -2,7 +2,7 @@
     package="com.ibrahimshaglil.flutter_steps_tracker">
     <uses-permission android:name="android.permission.ACTIVITY_RECOGNITION" />
    <application
-        android:label="flutter_steps_tracker"
+        android:label="Steptiper"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
 
