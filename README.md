@@ -22,13 +22,14 @@ A test for Mootawer(https://www.linkedin.com/company/mootawer-ltd/).
 ## Non-functional requirements
 
 1. [x] Usable and user-friendly interface.
-2. [x] Follow [Material design](https://material.io/) on Android, and [ ] ✨ (Bonus!) Cupertino on iOS.
-3. [x] Use a proper architecture for the code, UI code must not include any DB queries or business logic.
-4. [x] Use clear models for data.
-5. [x] Document functions and provide meaningful variable names and follow [Effective Dart](https://dart.dev/guides/language/effective-dart) to write your code.
-6. [x] ✨ (Bonus!) Dark mode.
-7. [x] ✨ (Bonus!) Privacy and security (e.g., Firestore database rules).
-8. [x] ✨ (Bonus!) The project is [null-safe](https://flutter.dev/docs/null-safety).
+2. [x] Follow [Material design](https://material.io/) on Android.
+3. [ ] ✨ (Bonus!) Cupertino on iOS.
+4. [x] Use a proper architecture for the code, UI code must not include any DB queries or business logic.
+5. [x] Use clear models for data.
+6. [x] Document functions and provide meaningful variable names and follow [Effective Dart](https://dart.dev/guides/language/effective-dart) to write your code.
+7. [x] ✨ (Bonus!) Dark mode.
+8. [x] ✨ (Bonus!) Privacy and security (e.g., Firestore database rules).
+9. [x] ✨ (Bonus!) The project is [null-safe](https://flutter.dev/docs/null-safety).
 
 ## For contact
 E-mail: ibrahimarc@outllo.com
