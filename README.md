@@ -1,7 +1,5 @@
 # flutter-steps-tracker
 
-A test for Mootawer(https://www.linkedin.com/company/mootawer-ltd/).
-
 ## Stiptiper 
 ![icon](https://user-images.githubusercontent.com/36954913/192212139-8ae34e41-4f01-48d9-9ee8-83e0da48ef31.png)
 
