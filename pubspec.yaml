@@ -35,28 +35,29 @@ dependencies:
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^1.0.2
+  #  cupertino_icons: ^1.0.2
   pedometer: ^3.0.0
-  firebase_core: ^1.22.0
+  firebase_core: ^2.8.0
   get:
-  shared_preferences: ^2.0.15
-  simple_gradient_text: 1.2.3
+  shared_preferences: ^2.0.20
+  simple_gradient_text: ^1.2.4
   google_fonts:
   odometer: ^3.0.0
   soundpool: ^2.3.0
-  firebase_auth: ^3.10.0
-  cloud_firestore: ^3.4.9
-  json_annotation: ^4.5.0
-  permission_handler: ^10.0.1
-  cached_network_image: ^3.2.1
-  flutter_launcher_icons: ^0.10.0
-  flutter_app_name: ^0.1.0
+  firebase_auth: ^4.3.0
+  cloud_firestore: ^4.4.5
+  json_annotation: ^4.8.0
+  permission_handler: ^10.2.0
+  cached_network_image: ^3.2.3
+  flutter_signin_button: ^2.0.0
+#  flutter_launcher_icons: ^0.12.0
+#  flutter_app_name: ^0.1.1
 
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  build_runner: ^2.1.2
+  build_runner: ^2.3.3
   json_serializable:
 
   # The "flutter_lints" package below contains a set of recommended lints to
@@ -108,9 +109,9 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
-flutter_icons:
-  android: true
-  ios: true
-  image_path: "assets/images/icon.png"
-flutter_app_name:
-  name: "Steptiper"
+#flutter_icons:
+#  android: true
+#  ios: true
+#  image_path: "assets/images/icon.png"
+#flutter_app_name:
+#  name: "Steptiper"

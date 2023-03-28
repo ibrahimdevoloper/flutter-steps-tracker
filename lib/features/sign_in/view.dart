@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_steps_tracker/features/home/view.dart';
 import 'package:get/get.dart';
 import 'package:simple_gradient_text/simple_gradient_text.dart';
 
@@ -17,10 +16,7 @@ class SignInPage extends StatelessWidget {
             "Welcome".tr,
             style: TextStyle(
                 fontWeight: FontWeight.bold,
-                color: Theme
-                    .of(context)
-                    .colorScheme
-                    .primary),
+                color: Theme.of(context).colorScheme.primary),
           ),
           elevation: 0,
           backgroundColor: Colors.transparent,
@@ -38,9 +34,9 @@ class SignInPage extends StatelessWidget {
                   children: [
                     Expanded(
                         child: Image.asset(
-                          "assets/images/icon.png",
-                          fit: BoxFit.contain,
-                        )),
+                      "assets/images/icon.png",
+                      fit: BoxFit.contain,
+                    )),
                     SizedBox(
                       height: 8,
                     ),
@@ -49,24 +45,15 @@ class SignInPage extends StatelessWidget {
                       style: TextStyle(
                           fontSize: 40.0, fontWeight: FontWeight.bold),
                       colors: [
-                        Theme
-                            .of(context)
-                            .colorScheme
-                            .primary,
-                        Theme
-                            .of(context)
-                            .colorScheme
-                            .secondary,
+                        Theme.of(context).colorScheme.primary,
+                        Theme.of(context).colorScheme.secondary,
                       ],
                     ),
                     Text(
                       "TIP YOURSELF WITH YOUR STEPS".tr,
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
-                          color: Theme
-                              .of(context)
-                              .colorScheme
-                              .primary),
+                          color: Theme.of(context).colorScheme.primary),
                     ),
                   ],
                 ),
@@ -94,27 +81,24 @@ class SignInPage extends StatelessWidget {
                           ),
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
-                              color: Theme
-                                  .of(context)
-                                  .colorScheme
-                                  .primary),
-                          onChanged: (value){
-                            controller.username=value;
+                              color: Theme.of(context).colorScheme.primary),
+                          onChanged: (value) {
+                            controller.username = value;
                           },
                         ),
                       ),
                       GetBuilder<SignInController>(
-                        init: controller,
+                          init: controller,
                           builder: (controller) {
-                        return controller.isloading?
-                            CircularProgressIndicator():
-                        ElevatedButton(
-                          onPressed: () {
-                            controller.signIn();
-                          },
-                          child: Text("Enter".tr),
-                        );
-                      }),
+                            return controller.isloading
+                                ? CircularProgressIndicator()
+                                : ElevatedButton(
+                                    onPressed: () {
+                                      controller.signIn();
+                                    },
+                                    child: Text("Enter".tr),
+                                  );
+                          }),
                     ],
                   ),
                 ),
