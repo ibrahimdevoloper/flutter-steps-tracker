@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_steps_tracker/Models/redeem/redeem.dart';
 import 'package:flutter_steps_tracker/Models/reward/reward.dart';
 import 'package:flutter_steps_tracker/Models/steps_number/steps_number.dart';
@@ -12,10 +11,9 @@ import 'package:flutter_steps_tracker/utilities/sound_service.dart';
 import 'package:get/get.dart';
 import 'package:pedometer/pedometer.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:soundpool/soundpool.dart';
 
 class HomeController extends GetxController {
-  PedometerService _pedometerService = PedometerService();
+  final PedometerService _pedometerService = PedometerService();
   static const stepCounterTag = 'stepCounter';
   static const heathPointsTag = 'heathPoints';
   late SoundService _soundService;
@@ -26,11 +24,11 @@ class HomeController extends GetxController {
 
   late String _userid;
   UserData? _userData;
-  List<UserData> _users = [];
-  List<Reward> _rewards = [];
+  final List<UserData> _users = [];
+  final List<Reward> _rewards = [];
   int _stepCount = 0;
   int _healthPoints = 0;
-  PedestrianStatus? pedoStatus = null;
+  PedestrianStatus? pedoStatus;
 
   static var main = "main";
 
@@ -67,7 +65,7 @@ class HomeController extends GetxController {
 
   incrementFirestoreSteps() async {
     try {
-      var userData = this._userData;
+      var userData = _userData;
       userData!.stepCount = stepCount.toDouble();
       userData.totalPoints = healthPoints.toDouble();
       userData.remainingPoints = userData.totalPoints - userData.redeemedPoints;
@@ -92,9 +90,9 @@ class HomeController extends GetxController {
       snackPosition: SnackPosition.TOP,
       backgroundColor: Colors.black38,
       colorText: Colors.white,
-      margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       borderRadius: 16,
-      duration: Duration(seconds: 3),
+      duration: const Duration(seconds: 3),
     );
   }
 

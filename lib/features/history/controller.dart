@@ -12,8 +12,8 @@ class HistoryController extends GetxController {
   SharedPreferences pref = Get.find();
   late FirebaseFirestore _db;
   late String _userid;
-  List<Redeem> _redeems = [];
-  List<StepsNumber> _stepsNumbers = [];
+  final List<Redeem> _redeems = [];
+  final List<StepsNumber> _stepsNumbers = [];
 
   HistoryController() {
     _db = FirebaseFirestore.instance;

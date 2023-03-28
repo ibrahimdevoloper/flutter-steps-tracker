@@ -41,7 +41,6 @@ class Messages extends Translations {
           "You don't have enough points": "You don't have enough points",
           "Redeem Unsuccessful": "Redeem Unsuccessful",
           "Sign in Success": "Sign in Success",
-          "You don't have enough points": "You don't have enough points",
           "Permission Not Accepted": "Permission Not Accepted",
           "Username is empty": "Username is empty",
           "Auth service is not provided.": "Auth service is not provided.",

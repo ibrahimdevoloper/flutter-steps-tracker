@@ -6,6 +6,8 @@ import 'controller.dart';
 class LeaderboardPage extends StatelessWidget {
   final controller = Get.put(LeaderboardController());
 
+  LeaderboardPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -14,7 +16,7 @@ class LeaderboardPage extends StatelessWidget {
         title: Text("Leaderboard".tr),
       ),
       body: GetBuilder<LeaderboardController>(
-          init:controller,
+          init: controller,
           builder: (controller) {
             if(controller.isloading) {
               return const Center(
@@ -46,11 +48,10 @@ class LeaderboardPage extends StatelessWidget {
                 child: Center(
                   child: Text(
                     (i+1).toString(),
-                    style: Theme
-                        .of(context)
-                        .textTheme
-                        .headline6!
-                        .copyWith(
+                    style: Theme.of(context)
+                                  .textTheme
+                                  .titleLarge!
+                                  .copyWith(
                       fontWeight: FontWeight.bold,
                       color: i % 2 == 0 ? Theme
                           .of(context)
@@ -65,11 +66,10 @@ class LeaderboardPage extends StatelessWidget {
               ),
               title: Text(
                 user.name,
-                style: Theme
-                    .of(context)
-                    .textTheme
-                    .bodyText1!
-                    .copyWith(
+                style: Theme.of(context)
+                              .textTheme
+                              .bodyLarge!
+                              .copyWith(
                   fontWeight: FontWeight.bold,
                   color: Theme
                       .of(context)
@@ -84,11 +84,10 @@ class LeaderboardPage extends StatelessWidget {
                     "Total steps: stepCount".trParams(
                       {"stepCount":user.stepCount.toString()}
                     ),
-                    style: Theme
-                        .of(context)
-                        .textTheme
-                        .caption!
-                        .copyWith(
+                    style: Theme.of(context)
+                                  .textTheme
+                                  .bodySmall!
+                                  .copyWith(
                       fontWeight: FontWeight.bold,
                       color: Theme
                           .of(context)
@@ -100,11 +99,10 @@ class LeaderboardPage extends StatelessWidget {
                     "Redeemed points: redeemedPoints".trParams(
                         {"redeemedPoints":user.redeemedPoints.toString()}
                     ),
-                    style: Theme
-                        .of(context)
-                        .textTheme
-                        .caption!
-                        .copyWith(
+                    style: Theme.of(context)
+                                  .textTheme
+                                  .bodySmall!
+                                  .copyWith(
                       fontWeight: FontWeight.bold,
                       color: Theme
                           .of(context)

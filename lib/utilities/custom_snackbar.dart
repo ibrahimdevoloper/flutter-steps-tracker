@@ -10,7 +10,7 @@ void showErrorSnakebar(String message, {title = "Error"}) {
     colorText: Colors.white,
     margin: EdgeInsets.zero,
     borderRadius: 0,
-    duration: Duration(seconds: 3),
+    duration: const Duration(seconds: 3),
   );
 }
 
@@ -19,10 +19,10 @@ void showNotificationSnakebar(message, {title = "Success"}) {
     title,
     message,
     snackPosition: SnackPosition.BOTTOM,
-    backgroundColor: Color(0xFF5BB318),
+    backgroundColor: const Color(0xFF5BB318),
     colorText: Colors.white,
     margin: EdgeInsets.zero,
     borderRadius: 0,
-    duration: Duration(seconds: 3),
+    duration: const Duration(seconds: 3),
   );
 }

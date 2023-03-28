@@ -7,6 +7,8 @@ import 'controller.dart';
 class OurRewardsPage extends StatelessWidget {
   final controller = Get.put(OurRewardsController());
 
+  OurRewardsPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,7 +20,7 @@ class OurRewardsPage extends StatelessWidget {
           init: controller,
           builder: (controller) {
             if (controller.isloading) {
-              return Center(
+              return const Center(
                 child: CircularProgressIndicator(),
               );
             } else {
@@ -56,15 +58,18 @@ class OurRewardsPage extends StatelessWidget {
                                 height: 40,
                                 imageUrl: reward.imageUrl,
                                 placeholder: (context, url) =>
-                                    CircularProgressIndicator(),
+                                    const CircularProgressIndicator(),
                                 errorWidget: (context, url, error) =>
-                                    Icon(Icons.error),
+                                    const Icon(Icons.error),
                               ),
                             ),
                           ),
                           title: Text(
                             Get.locale!.languageCode.compareTo("ar")==0?reward.nameAr:reward.nameEn,
-                            style: Theme.of(context).textTheme.button!.copyWith(
+                            style: Theme.of(context)
+                                .textTheme
+                                .labelLarge!
+                                .copyWith(
                                   fontWeight: FontWeight.bold,
                                   color: Theme.of(context).colorScheme.primary,
                                 ),
@@ -73,7 +78,10 @@ class OurRewardsPage extends StatelessWidget {
                             "Points: redeemPoints".trParams(
                                 {"redeemPoints":reward.redeemPoints.toString()}
                             ),
-                            style: Theme.of(context).textTheme.caption!.copyWith(
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodySmall!
+                                .copyWith(
                                   fontWeight: FontWeight.bold,
                                   color: Theme.of(context).colorScheme.primary,
                                 ),

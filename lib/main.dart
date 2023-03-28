@@ -30,16 +30,16 @@ class MyApp extends StatelessWidget {
             brightness: Brightness.dark,
             colorScheme: ColorScheme.fromSwatch().copyWith(
               brightness: Brightness.dark,
-              primary: Color(0xFF5BB318),
-              secondary: Color(0xFFEAE509),
-            ),
+            primary: const Color(0xFF5BB318),
+            secondary: const Color(0xFFEAE509),
+          ),
             textTheme: GoogleFonts.cairoTextTheme(),),
         theme: ThemeData(
             brightness: Brightness.light,
             colorScheme: ColorScheme.fromSwatch().copyWith(
               brightness: Brightness.light,
-              primary: Color(0xFF5BB318),
-              secondary: Color(0xFFEAE509),
+              primary: const Color(0xFF5BB318),
+              secondary: const Color(0xFFEAE509),
             ),
             textTheme: GoogleFonts.cairoTextTheme()),
 
@@ -49,11 +49,11 @@ class MyApp extends StatelessWidget {
               options: DefaultFirebaseOptions.currentPlatform,
             ),
             SharedPreferences.getInstance(),
-            Future.delayed(Duration(seconds: 3)),
+            Future.delayed(const Duration(seconds: 3)),
           ]),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return SplashPage();
+              return const SplashPage();
             } else if (snapshot.hasData) {
               SharedPreferences pref = snapshot.data![1];
               Get.put(pref);
@@ -81,7 +81,7 @@ class MyApp extends StatelessWidget {
               return Scaffold(
                 body: Center(
                   child: Text("Error",
-                      style: Theme.of(context).textTheme.headline3),
+                      style: Theme.of(context).textTheme.displaySmall),
                 ),
               );
             }

@@ -29,8 +29,9 @@ class RedeemsTab extends StatelessWidget {
                         height: 40,
                         imageUrl: redeem.imageUrl,
                         placeholder: (context, url) =>
-                            CircularProgressIndicator(),
-                        errorWidget: (context, url, error) => Icon(Icons.error),
+                            const CircularProgressIndicator(),
+                        errorWidget: (context, url, error) =>
+                            const Icon(Icons.error),
                       ),
                     ),
                   ),
@@ -38,7 +39,7 @@ class RedeemsTab extends StatelessWidget {
                     Get.locale!.languageCode.compareTo("ar") == 0
                         ? redeem.nameAr
                         : redeem.nameEn,
-                    style: Theme.of(context).textTheme.button!.copyWith(
+                    style: Theme.of(context).textTheme.labelLarge!.copyWith(
                           fontWeight: FontWeight.bold,
                           color: Theme.of(context).colorScheme.primary,
                         ),
@@ -46,7 +47,7 @@ class RedeemsTab extends StatelessWidget {
                   subtitle: Text(
                     "Points: redeemPoints".trParams(
                         {"redeemPoints": redeem.redeemPoints.toString()}),
-                    style: Theme.of(context).textTheme.caption!.copyWith(
+                    style: Theme.of(context).textTheme.bodySmall!.copyWith(
                           fontWeight: FontWeight.bold,
                           color: Theme.of(context).colorScheme.primary,
                         ),

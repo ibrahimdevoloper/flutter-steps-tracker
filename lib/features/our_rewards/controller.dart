@@ -14,7 +14,7 @@ class OurRewardsController extends GetxController {
   late String _userid;
   SharedPreferences pref = Get.find();
 
-  List<Reward> _rewards = [];
+  final List<Reward> _rewards = [];
 
   OurRewardsController() {
     _db = FirebaseFirestore.instance;

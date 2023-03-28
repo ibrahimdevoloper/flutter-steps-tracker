@@ -12,18 +12,20 @@ class SplashPage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Image.asset("assets/images/icon.png", height: 300,),
-            SizedBox(height: 8,),
+            Image.asset(
+              "assets/images/icon.png",
+              height: 300,
+            ),
+            const SizedBox(
+              height: 8,
+            ),
             GradientText(
               "Steptiper",
-              style: TextStyle(
-                fontSize: 40.0,
-                fontWeight: FontWeight.bold
-              ),
+              style:
+                  const TextStyle(fontSize: 40.0, fontWeight: FontWeight.bold),
               colors: [
                 Theme.of(context).colorScheme.primary,
                 Theme.of(context).colorScheme.secondary,
-
               ],
             ),
           ],

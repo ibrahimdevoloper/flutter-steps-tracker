@@ -7,6 +7,8 @@ import 'controller.dart';
 class SignInPage extends StatelessWidget {
   final controller = Get.put(SignInController());
 
+  SignInPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,12 +39,12 @@ class SignInPage extends StatelessWidget {
                       "assets/images/icon.png",
                       fit: BoxFit.contain,
                     )),
-                    SizedBox(
+                    const SizedBox(
                       height: 8,
                     ),
                     GradientText(
                       "Steptiper",
-                      style: TextStyle(
+                      style: const TextStyle(
                           fontSize: 40.0, fontWeight: FontWeight.bold),
                       colors: [
                         Theme.of(context).colorScheme.primary,
@@ -58,7 +60,7 @@ class SignInPage extends StatelessWidget {
                   ],
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 8,
               ),
               Expanded(
@@ -91,7 +93,7 @@ class SignInPage extends StatelessWidget {
                           init: controller,
                           builder: (controller) {
                             return controller.isloading
-                                ? CircularProgressIndicator()
+                                ? const CircularProgressIndicator()
                                 : ElevatedButton(
                                     onPressed: () {
                                       controller.signIn();

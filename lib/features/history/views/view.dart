@@ -8,6 +8,8 @@ import '../controller.dart';
 class HistoryPage extends StatelessWidget {
   final controller = Get.put(HistoryController());
 
+  HistoryPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -15,8 +17,8 @@ class HistoryPage extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: Theme.of(context).colorScheme.primary,
-          title:  Text("History".tr),
-          bottom:  TabBar(
+          title: Text("History".tr),
+          bottom: TabBar(
             indicatorColor: Colors.yellowAccent,
             tabs: [
               Tab(text: "Redeems".tr,),

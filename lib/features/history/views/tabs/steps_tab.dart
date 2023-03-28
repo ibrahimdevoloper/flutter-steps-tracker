@@ -31,7 +31,7 @@ class StepsTab extends StatelessWidget {
                         "step":stepsNumber.atStep.toString(),
                         "date":dateFormater(DateTime.fromMillisecondsSinceEpoch(stepsNumber.timestamp))
                       }),
-                      style: Theme.of(context).textTheme.button!.copyWith(
+                      style: Theme.of(context).textTheme.labelLarge!.copyWith(
                             fontWeight: FontWeight.bold,
                             color: Theme.of(context).colorScheme.primary,
                           ),
@@ -45,7 +45,7 @@ class StepsTab extends StatelessWidget {
                             stepsNumber.description!,
                             style: Theme.of(context)
                                 .textTheme
-                                .caption!
+                                .bodySmall!
                                 .copyWith(
                                   fontWeight: FontWeight.bold,
                                   color: Theme.of(context).colorScheme.primary,

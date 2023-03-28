@@ -7,7 +7,7 @@ class LeaderboardController extends GetxController {
   late FirebaseFirestore _db;
   var _isloading = false;
 
-  List<UserData> _users = [];
+  final List<UserData> _users = [];
 
   LeaderboardController() {
     _db = FirebaseFirestore.instance;
