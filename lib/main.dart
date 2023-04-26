@@ -27,13 +27,14 @@ class MyApp extends StatelessWidget {
         translations: Messages(),
         locale: Get.deviceLocale,
         darkTheme: ThemeData(
+          brightness: Brightness.dark,
+          colorScheme: ColorScheme.fromSwatch().copyWith(
             brightness: Brightness.dark,
-            colorScheme: ColorScheme.fromSwatch().copyWith(
-              brightness: Brightness.dark,
             primary: const Color(0xFF5BB318),
             secondary: const Color(0xFFEAE509),
           ),
-            textTheme: GoogleFonts.cairoTextTheme(),),
+          textTheme: GoogleFonts.cairoTextTheme(),
+        ),
         theme: ThemeData(
             brightness: Brightness.light,
             colorScheme: ColorScheme.fromSwatch().copyWith(
@@ -42,7 +43,6 @@ class MyApp extends StatelessWidget {
               secondary: const Color(0xFFEAE509),
             ),
             textTheme: GoogleFonts.cairoTextTheme()),
-
         home: FutureBuilder<List>(
           future: Future.wait([
             Firebase.initializeApp(
@@ -58,10 +58,9 @@ class MyApp extends StatelessWidget {
               SharedPreferences pref = snapshot.data![1];
               Get.put(pref);
 
-              var localeLang = pref.getString(ProjectConstants.isArabic)??"en";
-
-              var locale = Locale(localeLang);
-              Get.updateLocale(locale);
+              // var localeLang = pref.getString(ProjectConstants.isArabic)??"en";
+              // var locale = Locale(localeLang);
+              // Get.updateLocale(locale);
 
               var soundService = SoundService();
               Get.put(soundService);
@@ -87,5 +86,12 @@ class MyApp extends StatelessWidget {
             }
           },
         ));
+  }
+
+  changeToDefaultLocale() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    var localeLang = pref.getString(ProjectConstants.isArabic) ?? "en";
+    var locale = Locale(localeLang);
+    await Get.updateLocale(locale);
   }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:sign_button/sign_button.dart';
 import 'package:simple_gradient_text/simple_gradient_text.dart';
 
 import 'controller.dart';
@@ -57,6 +58,7 @@ class SignInPage extends StatelessWidget {
                           fontWeight: FontWeight.bold,
                           color: Theme.of(context).colorScheme.primary),
                     ),
+                    //TODO: Switch Languages
                   ],
                 ),
               ),
@@ -67,40 +69,67 @@ class SignInPage extends StatelessWidget {
                 flex: 3,
                 child: Center(
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 16,
-                          vertical: 8,
-                        ),
-                        child: TextField(
-                          decoration: InputDecoration(
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(16),
+                      SignInButton(
+                        buttonType: ButtonType.googleDark,
+                        onPressed: () {
+                          controller.googleLogin();
+                        },
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(
+                              8,
                             ),
-                            hintText: "Enter your name".tr,
                           ),
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: Theme.of(context).colorScheme.primary),
-                          onChanged: (value) {
-                            controller.username = value;
-                          },
                         ),
                       ),
-                      GetBuilder<SignInController>(
-                          init: controller,
-                          builder: (controller) {
-                            return controller.isloading
-                                ? const CircularProgressIndicator()
-                                : ElevatedButton(
-                                    onPressed: () {
-                                      controller.signIn();
-                                    },
-                                    child: Text("Enter".tr),
-                                  );
-                          }),
+                      SignInButton(
+                        buttonType: ButtonType.mail,
+                        btnColor: Get.theme.colorScheme.primary,
+                        onPressed: () {
+                          print('click');
+                        },
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(
+                              8,
+                            ),
+                          ),
+                        ),
+                      ),
+                      // Padding(
+                      //   padding: const EdgeInsets.symmetric(
+                      //     horizontal: 16,
+                      //     vertical: 8,
+                      //   ),
+                      //   child: TextField(
+                      //     decoration: InputDecoration(
+                      //       border: OutlineInputBorder(
+                      //         borderRadius: BorderRadius.circular(16),
+                      //       ),
+                      //       hintText: "Enter your name".tr,
+                      //     ),
+                      //     style: TextStyle(
+                      //         fontWeight: FontWeight.bold,
+                      //         color: Theme.of(context).colorScheme.primary),
+                      //     onChanged: (value) {
+                      //       controller.username = value;
+                      //     },
+                      //   ),
+                      // ),
+                      // GetBuilder<SignInController>(
+                      //     init: controller,
+                      //     builder: (controller) {
+                      //       return controller.isloading
+                      //           ? const CircularProgressIndicator()
+                      //           : ElevatedButton(
+                      //               onPressed: () {
+                      //                 controller.signIn();
+                      //               },
+                      //               child: Text("Enter".tr),
+                      //             );
+                      //     }),
                     ],
                   ),
                 ),

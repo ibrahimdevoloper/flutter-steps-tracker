@@ -10,6 +10,8 @@ class UserData {
   String id;
   @JsonKey(name: 'name')
   String name;
+  @JsonKey(name: 'email')
+  String email;
   @JsonKey(name: 'redeemed_points')
   double redeemedPoints;
   @JsonKey(name: 'remaining_points')
@@ -19,10 +21,10 @@ class UserData {
   @JsonKey(name: 'total_points')
   double totalPoints;
 
-
   factory UserData.fromJson(Map<String, dynamic> json) => _$UserDataFromJson(json);
 
-  Map<String, dynamic> toJson() => _$UserDataToJson(this);
+  Map<String, Object?> toJson() => _$UserDataToJson(this);
 
-  UserData(this.id, this.name, this.redeemedPoints, this.remainingPoints,this.stepCount, this.totalPoints);
+  UserData(this.id, this.name, this.email, this.redeemedPoints,
+      this.remainingPoints, this.stepCount, this.totalPoints);
 }
