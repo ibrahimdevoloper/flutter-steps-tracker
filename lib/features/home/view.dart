@@ -8,6 +8,7 @@ import 'package:get/get.dart';
 import 'package:odometer/odometer.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:simple_gradient_text/simple_gradient_text.dart';
+import 'package:toggle_switch/toggle_switch.dart';
 
 import 'controller.dart';
 
@@ -116,29 +117,50 @@ class HomePage extends StatelessWidget {
                   pref.setBool(ProjectConstants.isDarkMode, Get.isDarkMode);
                 },
               ),
-              SwitchListTile(
-                title: Text(
-                  Get.locale!.languageCode.compareTo("ar") == 0
-                      ? "عربي"
-                      : "English",
-                  style: Theme.of(context).textTheme.labelLarge!.copyWith(
-                        fontWeight: FontWeight.bold,
-                        color: Theme.of(context).colorScheme.primary,
-                      ),
-                ),
-                activeColor: Theme.of(context).colorScheme.primary,
-                value: Get.locale!.languageCode.compareTo("ar") == 0,
-                onChanged: (value) {
-                  var locale = Get.locale!.languageCode.compareTo("ar") == 0
-                      ? const Locale('en')
-                      : const Locale('ar');
+              // SwitchListTile(
+              //   title: Text(
+              //     Get.locale!.languageCode.compareTo("ar") == 0
+              //         ? "عربي"
+              //         : "English",
+              //     style: Theme.of(context).textTheme.labelLarge!.copyWith(
+              //           fontWeight: FontWeight.bold,
+              //           color: Theme.of(context).colorScheme.primary,
+              //         ),
+              //   ),
+              //   activeColor: Theme.of(context).colorScheme.primary,
+              //   value: Get.locale!.languageCode.compareTo("ar") == 0,
+              //   onChanged: (value) {
+              //     var locale = Get.locale!.languageCode.compareTo("ar") == 0
+              //         ? const Locale('en')
+              //         : const Locale('ar');
+              //     Get.updateLocale(locale);
+              //     SharedPreferences pref = Get.find();
+              //     pref.setString(
+              //         ProjectConstants.isArabic,
+              //         Get.locale!.languageCode.compareTo("ar") == 0
+              //             ? 'ar'
+              //             : 'en');
+              //   },
+              // ),
+              ToggleSwitch(
+                minWidth: 90.0,
+                minHeight: 34.0,
+                fontSize: 16.0,
+                initialLabelIndex: Get.locale!.languageCode == "ar" ? 1 : 0,
+                activeBgColor: [Colors.green],
+                activeFgColor: Colors.white,
+                inactiveBgColor: Colors.grey,
+                inactiveFgColor: Colors.grey[900],
+                totalSwitches: 2,
+                labels: ["English", "عربي"],
+                onToggle: (index) {
+                  print('switched to: $index');
+                  var locale =
+                      index == 0 ? const Locale('en') : const Locale('ar');
                   Get.updateLocale(locale);
                   SharedPreferences pref = Get.find();
                   pref.setString(
-                      ProjectConstants.isArabic,
-                      Get.locale!.languageCode.compareTo("ar") == 0
-                          ? 'ar'
-                          : 'en');
+                      ProjectConstants.isArabic, locale.languageCode);
                 },
               ),
             ],

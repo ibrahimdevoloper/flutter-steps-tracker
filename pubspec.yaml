@@ -38,7 +38,7 @@ dependencies:
   #  cupertino_icons: ^1.0.2
   pedometer: ^3.0.0
   firebase_core: ^2.10.0
-  get:
+  get: ^4.6.5
   shared_preferences: ^2.1.0
   simple_gradient_text: ^1.2.4
   google_fonts:
@@ -52,6 +52,7 @@ dependencies:
   flutter_signin_button: ^2.0.0
   sign_button: ^2.0.3
   google_sign_in: ^6.1.0
+  toggle_switch: ^2.1.0
 #  flutter_launcher_icons: ^0.12.0
 #  flutter_app_name: ^0.1.1
 

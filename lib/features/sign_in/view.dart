@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_steps_tracker/utilities/project_constants.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sign_button/sign_button.dart';
 import 'package:simple_gradient_text/simple_gradient_text.dart';
+import 'package:toggle_switch/toggle_switch.dart';
 
 import 'controller.dart';
 
@@ -58,7 +61,32 @@ class SignInPage extends StatelessWidget {
                           fontWeight: FontWeight.bold,
                           color: Theme.of(context).colorScheme.primary),
                     ),
-                    //TODO: Switch Languages
+                    const SizedBox(
+                      height: 8,
+                    ),
+                    ToggleSwitch(
+                      minWidth: 90.0,
+                      minHeight: 34.0,
+                      fontSize: 16.0,
+                      initialLabelIndex:
+                          Get.locale!.languageCode == "ar" ? 1 : 0,
+                      activeBgColor: [Colors.green],
+                      activeFgColor: Colors.white,
+                      inactiveBgColor: Colors.grey,
+                      inactiveFgColor: Colors.grey[900],
+                      totalSwitches: 2,
+                      labels: ["English", "عربي"],
+                      onToggle: (index) {
+                        print('switched to: $index');
+                        var locale = index == 0
+                            ? const Locale('en')
+                            : const Locale('ar');
+                        Get.updateLocale(locale);
+                        SharedPreferences pref = Get.find();
+                        pref.setString(
+                            ProjectConstants.isArabic, locale.languageCode);
+                      },
+                    ),
                   ],
                 ),
               ),
