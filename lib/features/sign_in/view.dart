@@ -70,7 +70,7 @@ class SignInPage extends StatelessWidget {
                       fontSize: 16.0,
                       initialLabelIndex:
                           Get.locale!.languageCode == "ar" ? 1 : 0,
-                      activeBgColor: [Colors.green],
+                      activeBgColor: [Theme.of(context).colorScheme.primary],
                       activeFgColor: Colors.white,
                       inactiveBgColor: Colors.grey,
                       inactiveFgColor: Colors.grey[900],
