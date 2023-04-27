@@ -13,12 +13,91 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'features/sign_in/view.dart';
 import 'firebase_options.dart';
 
-Future<void> main() async {
+main() {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder<List>(
+      future: Future.wait([
+        Firebase.initializeApp(
+          options: DefaultFirebaseOptions.currentPlatform,
+        ),
+        SharedPreferences.getInstance(),
+        Future.delayed(const Duration(seconds: 3)),
+      ]),
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          SharedPreferences pref = snapshot.data![1];
+          Get.put(pref);
+
+          var soundService = SoundService();
+          Get.put(soundService);
+        }
+
+        return MainMaterialApp(
+            child: snapshot.hasData
+                ? UserStreamBuilder()
+                : snapshot.connectionState == ConnectionState.waiting
+                    ? SplashPage()
+                    : DefaultErrorWidget());
+      },
+    );
+  }
+
+  changeToDefaultLocale() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    var localeLang = pref.getString(ProjectConstants.isArabic) ?? "en";
+    var locale = Locale(localeLang);
+    await Get.updateLocale(locale);
+  }
+}
+
+class DefaultErrorWidget extends StatelessWidget {
+  const DefaultErrorWidget({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+        child: Text("Error", style: Theme.of(context).textTheme.displaySmall),
+      ),
+    );
+  }
+}
+
+class UserStreamBuilder extends StatelessWidget {
+  const UserStreamBuilder({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return StreamBuilder<User?>(
+        stream: FirebaseAuth.instance.authStateChanges(),
+        builder: (context, snapshot) {
+          SharedPreferences pref = Get.find();
+          var username = pref.getString("username") ?? "";
+          if (snapshot.data == null || username.isEmpty) {
+            return SignInPage();
+          } else {
+            return HomePage();
+          }
+        });
+  }
+}
+
+class MainMaterialApp extends StatelessWidget {
+  final Widget child;
+
+  const MainMaterialApp({super.key, required this.child});
 
   @override
   Widget build(BuildContext context) {
@@ -43,55 +122,6 @@ class MyApp extends StatelessWidget {
               secondary: const Color(0xFFEAE509),
             ),
             textTheme: GoogleFonts.cairoTextTheme()),
-        home: FutureBuilder<List>(
-          future: Future.wait([
-            Firebase.initializeApp(
-              options: DefaultFirebaseOptions.currentPlatform,
-            ),
-            SharedPreferences.getInstance(),
-            Future.delayed(const Duration(seconds: 3)),
-          ]),
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return const SplashPage();
-            } else if (snapshot.hasData) {
-              SharedPreferences pref = snapshot.data![1];
-              Get.put(pref);
-
-              // var localeLang = pref.getString(ProjectConstants.isArabic)??"en";
-              // var locale = Locale(localeLang);
-              // Get.updateLocale(locale);
-
-              var soundService = SoundService();
-              Get.put(soundService);
-
-              return StreamBuilder<User?>(
-                  stream: FirebaseAuth.instance.authStateChanges(),
-                  builder: (context, snapshot) {
-                    SharedPreferences pref = Get.find();
-                    var username = pref.getString("username") ?? "";
-                    if (snapshot.data == null || username.isEmpty) {
-                      return SignInPage();
-                    } else {
-                      return HomePage();
-                    }
-                  });
-            } else {
-              return Scaffold(
-                body: Center(
-                  child: Text("Error",
-                      style: Theme.of(context).textTheme.displaySmall),
-                ),
-              );
-            }
-          },
-        ));
-  }
-
-  changeToDefaultLocale() async {
-    SharedPreferences pref = await SharedPreferences.getInstance();
-    var localeLang = pref.getString(ProjectConstants.isArabic) ?? "en";
-    var locale = Locale(localeLang);
-    await Get.updateLocale(locale);
+        home: child);
   }
 }
