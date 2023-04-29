@@ -53,6 +53,9 @@ dependencies:
   sign_button: ^2.0.3
   google_sign_in: ^6.1.0
   toggle_switch: ^2.1.0
+  email_validator: ^2.1.17
+  firebase_auth_mocks: ^0.11.0
+  fake_cloud_firestore: ^2.4.1+1
 #  flutter_launcher_icons: ^0.12.0
 #  flutter_app_name: ^0.1.1
 
@@ -62,6 +65,7 @@ dev_dependencies:
     sdk: flutter
   build_runner: ^2.3.3
   json_serializable:
+  mocktail: ^0.3.0
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is

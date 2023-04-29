@@ -64,6 +64,27 @@ class HomePage extends StatelessWidget {
                   ],
                 ),
               ),
+              ToggleSwitch(
+                minWidth: 90.0,
+                minHeight: 34.0,
+                fontSize: 16.0,
+                initialLabelIndex: Get.locale!.languageCode == "ar" ? 1 : 0,
+                activeBgColor: [Theme.of(context).colorScheme.primary],
+                activeFgColor: Colors.white,
+                inactiveBgColor: Colors.grey,
+                inactiveFgColor: Colors.grey[900],
+                totalSwitches: 2,
+                labels: ["English", "عربي"],
+                onToggle: (index) {
+                  print('switched to: $index');
+                  var locale =
+                      index == 0 ? const Locale('en') : const Locale('ar');
+                  Get.updateLocale(locale);
+                  SharedPreferences pref = Get.find();
+                  pref.setString(
+                      ProjectConstants.isArabic, locale.languageCode);
+                },
+              ),
               ListTile(
                 title: Text(
                   "Rewards".tr,
@@ -142,27 +163,6 @@ class HomePage extends StatelessWidget {
               //             : 'en');
               //   },
               // ),
-              ToggleSwitch(
-                minWidth: 90.0,
-                minHeight: 34.0,
-                fontSize: 16.0,
-                initialLabelIndex: Get.locale!.languageCode == "ar" ? 1 : 0,
-                activeBgColor: [Theme.of(context).colorScheme.primary],
-                activeFgColor: Colors.white,
-                inactiveBgColor: Colors.grey,
-                inactiveFgColor: Colors.grey[900],
-                totalSwitches: 2,
-                labels: ["English", "عربي"],
-                onToggle: (index) {
-                  print('switched to: $index');
-                  var locale =
-                      index == 0 ? const Locale('en') : const Locale('ar');
-                  Get.updateLocale(locale);
-                  SharedPreferences pref = Get.find();
-                  pref.setString(
-                      ProjectConstants.isArabic, locale.languageCode);
-                },
-              ),
             ],
           ),
         ),
