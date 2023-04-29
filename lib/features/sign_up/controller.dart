@@ -103,7 +103,7 @@ class SignUpController extends GetxController {
     try {
       if (validator()) {
         _isloading = true;
-        update();
+        update([registerButtonTag]);
         final userCredential = await _auth.createUserWithEmailAndPassword(
           email: _email ?? "",
           password: _password ?? "",
@@ -121,12 +121,12 @@ class SignUpController extends GetxController {
         });
         saveUserDataLocally(userDoc.id, _fullName);
         _isloading = false;
-        update();
+        update([registerButtonTag]);
         Get.offAll(() => HomePage());
         showNotificationSnakebar("Sign in Success".tr);
       } else {
         _isloading = false;
-        // update();
+        update([registerButtonTag]);
       }
     } on FirebaseAuthException catch (e) {
       switch (e.code) {
@@ -137,7 +137,7 @@ class SignUpController extends GetxController {
           showErrorSnakebar("Unknown error.".tr);
       }
       _isloading = false;
-      update();
+      update([registerButtonTag]);
     }
   }
 
