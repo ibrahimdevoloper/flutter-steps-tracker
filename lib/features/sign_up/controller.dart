@@ -163,7 +163,7 @@ class SignUpController extends GetxController {
 
   set email(String value) {
     _email = value;
-    if (_fullNameErrorMessage != null || EmailValidator.validate(value)) {
+    if (_emailErrorMessage != null || EmailValidator.validate(value)) {
       _emailErrorMessage = null;
       update([emailTag]);
     }
@@ -179,7 +179,7 @@ class SignUpController extends GetxController {
 
   set confirmPassword(String value) {
     _confirmPassword = value;
-    if (_passwordErrorMessage != null || passwordValidator()) {
+    if (_confirmPasswordErrorMessage != null || passwordValidator()) {
       _confirmPasswordErrorMessage = null;
       update([confirmPasswordTag]);
     }
