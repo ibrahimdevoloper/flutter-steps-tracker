@@ -37,6 +37,8 @@ class SignInController extends GetxController {
 
   googleLogin() async {
     try {
+      _isloading = true;
+      update();
       final selectedGoogleAccount = await _googleSignIn.signIn();
       if (selectedGoogleAccount == null) return;
       final googleAuth = await selectedGoogleAccount.authentication;
@@ -48,7 +50,7 @@ class SignInController extends GetxController {
           .where(
             "user_id",
             isEqualTo: userCredential.user?.uid,
-          )
+      )
           .count()
           .get();
 
@@ -69,9 +71,9 @@ class SignInController extends GetxController {
         var userDoc = await _db
             .collection("users")
             .where(
-              "user_id",
-              isEqualTo: userCredential.user?.uid,
-            )
+          "user_id",
+          isEqualTo: userCredential.user?.uid,
+        )
             .withConverter<UserData?>(fromFirestore: (doc, options) {
           UserData? data;
           data = doc.data() != null ? UserData.fromJson(doc.data()!) : null;
@@ -84,6 +86,8 @@ class SignInController extends GetxController {
       }
       _isloading = false;
       update();
+      Get.off(() => HomePage());
+      showNotificationSnakebar("Sign in Success".tr);
     } on FirebaseAuthException catch (e) {
       switch (e.code) {
         case "operation-not-allowed":

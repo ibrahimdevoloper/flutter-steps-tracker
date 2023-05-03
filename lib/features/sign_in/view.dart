@@ -97,70 +97,78 @@ class SignInPage extends StatelessWidget {
               Expanded(
                 flex: 3,
                 child: Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      SignInButton(
-                        buttonType: ButtonType.googleDark,
-                        onPressed: () {
-                          controller.googleLogin();
-                        },
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(
-                              8,
-                            ),
-                          ),
-                        ),
-                      ),
-                      SignInButton(
-                        buttonType: ButtonType.mail,
-                        btnColor: Get.theme.colorScheme.primary,
-                        onPressed: () {
-                          Get.to(() => SignInWithEmailPage());
-                        },
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(
-                              8,
-                            ),
-                          ),
-                        ),
-                      ),
-                      // Padding(
-                      //   padding: const EdgeInsets.symmetric(
-                      //     horizontal: 16,
-                      //     vertical: 8,
-                      //   ),
-                      //   child: TextField(
-                      //     decoration: InputDecoration(
-                      //       border: OutlineInputBorder(
-                      //         borderRadius: BorderRadius.circular(16),
-                      //       ),
-                      //       hintText: "Enter your name".tr,
-                      //     ),
-                      //     style: TextStyle(
-                      //         fontWeight: FontWeight.bold,
-                      //         color: Theme.of(context).colorScheme.primary),
-                      //     onChanged: (value) {
-                      //       controller.username = value;
-                      //     },
-                      //   ),
-                      // ),
-                      // GetBuilder<SignInController>(
-                      //     init: controller,
-                      //     builder: (controller) {
-                      //       return controller.isloading
-                      //           ? const CircularProgressIndicator()
-                      //           : ElevatedButton(
-                      //               onPressed: () {
-                      //                 controller.signIn();
-                      //               },
-                      //               child: Text("Enter".tr),
-                      //             );
-                      //     }),
-                    ],
-                  ),
+                  child: GetBuilder<SignInController>(
+                      init: controller,
+                      builder: (controller) {
+                        if (controller.isloading) {
+                          return const CircularProgressIndicator();
+                        } else {
+                          return Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              SignInButton(
+                                buttonType: ButtonType.googleDark,
+                                onPressed: () {
+                                  controller.googleLogin();
+                                },
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(
+                                      8,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              SignInButton(
+                                buttonType: ButtonType.mail,
+                                btnColor: Get.theme.colorScheme.primary,
+                                onPressed: () {
+                                  Get.to(() => SignInWithEmailPage());
+                                },
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(
+                                      8,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              // Padding(
+                              //   padding: const EdgeInsets.symmetric(
+                              //     horizontal: 16,
+                              //     vertical: 8,
+                              //   ),
+                              //   child: TextField(
+                              //     decoration: InputDecoration(
+                              //       border: OutlineInputBorder(
+                              //         borderRadius: BorderRadius.circular(16),
+                              //       ),
+                              //       hintText: "Enter your name".tr,
+                              //     ),
+                              //     style: TextStyle(
+                              //         fontWeight: FontWeight.bold,
+                              //         color: Theme.of(context).colorScheme.primary),
+                              //     onChanged: (value) {
+                              //       controller.username = value;
+                              //     },
+                              //   ),
+                              // ),
+                              // GetBuilder<SignInController>(
+                              //     init: controller,
+                              //     builder: (controller) {
+                              //       return controller.isloading
+                              //           ? const CircularProgressIndicator()
+                              //           : ElevatedButton(
+                              //               onPressed: () {
+                              //                 controller.signIn();
+                              //               },
+                              //               child: Text("Enter".tr),
+                              //             );
+                              //     }),
+                            ],
+                          );
+                        }
+                      }),
                 ),
               )
             ],
