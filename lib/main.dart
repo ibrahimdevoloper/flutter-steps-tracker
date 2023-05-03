@@ -42,10 +42,10 @@ class MyApp extends StatelessWidget {
 
         return MainMaterialApp(
             child: snapshot.hasData
-                ? UserStreamBuilder()
+                ? const UserStreamBuilder()
                 : snapshot.connectionState == ConnectionState.waiting
-                    ? SplashPage()
-                    : DefaultErrorWidget());
+                    ? const SplashPage()
+                    : const DefaultErrorWidget());
       },
     );
   }
@@ -84,7 +84,7 @@ class UserStreamBuilder extends StatelessWidget {
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (context, snapshot) {
           SharedPreferences pref = Get.find();
-          var username = pref.getString("username") ?? "";
+          var username = pref.getString(ProjectConstants.username) ?? "";
           if (snapshot.data == null || username.isEmpty) {
             return SignInPage();
           } else {
