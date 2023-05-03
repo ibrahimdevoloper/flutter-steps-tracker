@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_steps_tracker/features/sign_in_with_email/view.dart';
 import 'package:flutter_steps_tracker/utilities/project_constants.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -116,7 +117,7 @@ class SignInPage extends StatelessWidget {
                         buttonType: ButtonType.mail,
                         btnColor: Get.theme.colorScheme.primary,
                         onPressed: () {
-                          print('click');
+                          Get.to(() => SignInWithEmailPage());
                         },
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.all(
