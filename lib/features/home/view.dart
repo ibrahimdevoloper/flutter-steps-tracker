@@ -30,11 +30,11 @@ class HomePage extends StatelessWidget {
             ),
           ),
           actions: [
-            IconButton(
-                onPressed: () {
-                  Get.to(() => HistoryPage());
-                },
-                icon: const Icon(Icons.calendar_today_rounded))
+            // IconButton(
+            //     onPressed: () {
+            //       Get.to(() => HistoryPage());
+            //     },
+            //     icon: const Icon(Icons.calendar_today_rounded))
           ],
         ),
         drawer: Drawer(
@@ -121,6 +121,31 @@ class HomePage extends StatelessWidget {
                   Get.to(() => HistoryPage());
                 },
               ),
+              ListTile(
+                title: Text(
+                  "Sign out".tr,
+                  style: Theme.of(context).textTheme.labelLarge!.copyWith(
+                        fontWeight: FontWeight.bold,
+                        color: Theme.of(context).colorScheme.primary,
+                      ),
+                ),
+                onTap: () {
+                  //TODO: add conformation Dialog
+                  controller.signOut();
+                },
+              ),
+              ListTile(
+                title: Text(
+                  "Delete Account".tr,
+                  style: Theme.of(context).textTheme.labelLarge!.copyWith(
+                        fontWeight: FontWeight.bold,
+                        color: Theme.of(context).colorScheme.primary,
+                      ),
+                ),
+                onTap: () {
+                  //TODO: delete account
+                },
+              ),
               SwitchListTile(
                 title: Text(
                   Get.isDarkMode ? "Dark Mode".tr : "Light Mode".tr,
@@ -182,8 +207,8 @@ class HomePage extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "Hi, name"
-                            .trParams({"name": controller.userData.name}),
+                        "Hi, name".trParams(
+                            {"name": controller.userData?.name ?? ""}),
                         style:
                             Theme.of(context).textTheme.headlineSmall!.copyWith(
                                   fontWeight: FontWeight.bold,
@@ -383,163 +408,72 @@ class HomePage extends StatelessWidget {
                           ),
                         ],
                       ),
-                      Card(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(16.0),
-                        ),
-                        child: ListTile(
-                          leading: Container(
-                            height: 40,
-                            width: 40,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(24),
-                              color: Theme.of(context).colorScheme.primary,
-                            ),
-                            child: Center(
-                              child: Text(
-                                "1",
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .titleLarge!
-                                    .copyWith(
-                                      fontWeight: FontWeight.bold,
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .secondary,
-                                    ),
+                      Expanded(
+                        flex: 6,
+                        child: ListView.builder(
+                          physics: BouncingScrollPhysics(),
+                          itemCount: controller.users.length,
+                          itemBuilder: (context, index) {
+                            return Card(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(16.0),
                               ),
-                            ),
-                          ),
-                          title: Text(
-                            controller.users[0].name,
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyLarge!
-                                .copyWith(
-                                  fontWeight: FontWeight.bold,
-                                  color: Theme.of(context).colorScheme.primary,
+                              child: ListTile(
+                                leading: Container(
+                                  height: 40,
+                                  width: 40,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(24),
+                                    color:
+                                        Theme.of(context).colorScheme.primary,
+                                  ),
+                                  child: Center(
+                                    child: Text(
+                                      "${index + 1}",
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleLarge!
+                                          .copyWith(
+                                            fontWeight: FontWeight.bold,
+                                            color: Theme.of(context)
+                                                .colorScheme
+                                                .secondary,
+                                          ),
+                                    ),
+                                  ),
                                 ),
-                          ),
-                          subtitle: Text(
-                            "Step Count: stepCount".trParams({
-                              "stepCount":
-                                  controller.users[0].stepCount.toString(),
-                            }),
-                            style:
-                            Theme.of(context).textTheme.bodySmall!.copyWith(
-                                      fontWeight: FontWeight.bold,
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .primary
-                                          .withOpacity(0.7),
-                                    ),
-                          ),
-                        ),
-                      ),
-                      Card(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(16.0),
-                        ),
-                        child: ListTile(
-                          leading: Container(
-                            height: 40,
-                            width: 40,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(24),
-                              color: Theme.of(context).colorScheme.primary,
-                            ),
-                            child: Center(
-                              child: Text(
-                                "2",
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .titleLarge!
-                                    .copyWith(
-                                      fontWeight: FontWeight.bold,
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .secondary,
-                                    ),
+                                title: Text(
+                                  controller.users[index].name,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyLarge!
+                                      .copyWith(
+                                        fontWeight: FontWeight.bold,
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .primary,
+                                      ),
+                                ),
+                                subtitle: Text(
+                                  "Step Count: stepCount".trParams({
+                                    "stepCount": controller
+                                        .users[index].stepCount
+                                        .toString(),
+                                  }),
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodySmall!
+                                      .copyWith(
+                                        fontWeight: FontWeight.bold,
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .primary
+                                            .withOpacity(0.7),
+                                      ),
+                                ),
                               ),
-                            ),
-                          ),
-                          title: Text(
-                            controller.users[1].name,
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyLarge!
-                                .copyWith(
-                                  fontWeight: FontWeight.bold,
-                                  color: Theme.of(context).colorScheme.primary,
-                                ),
-                          ),
-                          subtitle: Text(
-                            "Step Count: stepCount".trParams({
-                              "stepCount":
-                                  controller.users[1].stepCount.toString(),
-                            }),
-                            style:
-                            Theme.of(context).textTheme.bodySmall!.copyWith(
-                                      fontWeight: FontWeight.bold,
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .primary
-                                          .withOpacity(0.7),
-                                    ),
-                          ),
-                        ),
-                      ),
-                      Card(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(16.0),
-                        ),
-                        child: ListTile(
-                          leading: Container(
-                            height: 40,
-                            width: 40,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(24),
-                              color: Theme.of(context).colorScheme.primary,
-                            ),
-                            child: Center(
-                              child: Text(
-                                "3",
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .titleLarge!
-                                    .copyWith(
-                                      fontWeight: FontWeight.bold,
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .secondary,
-                                    ),
-                              ),
-                            ),
-                          ),
-                          title: Text(
-                            controller.users[2].name,
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyLarge!
-                                .copyWith(
-                                  fontWeight: FontWeight.bold,
-                                  color: Theme.of(context).colorScheme.primary,
-                                ),
-                          ),
-                          subtitle: Text(
-                            "Step Count: stepCount".trParams({
-                              "stepCount":
-                                  controller.users[2].stepCount.toString(),
-                            }),
-                            style:
-                            Theme.of(context).textTheme.bodySmall!.copyWith(
-                                      fontWeight: FontWeight.bold,
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .primary
-                                          .withOpacity(0.7),
-                                    ),
-                          ),
+                            );
+                          },
                         ),
                       ),
                       Row(
@@ -574,8 +508,9 @@ class HomePage extends StatelessWidget {
                         ],
                       ),
                       Expanded(
-                        flex: 2,
+                        flex: 3,
                         child: ListView.builder(
+                          physics: BouncingScrollPhysics(),
                           itemCount: controller.rewards.length,
                           scrollDirection: Axis.horizontal,
                           itemBuilder: (context, i) {
@@ -593,20 +528,20 @@ class HomePage extends StatelessWidget {
                                     content: Text(
                                         "Do you want to redeem redeemPoints for name?"
                                             .trParams({
-                                      "redeemPoints":
+                                          "redeemPoints":
                                           reward.redeemPoints.toString(),
-                                      "name": Get.locale!.languageCode
-                                                  .compareTo("ar") ==
+                                          "name": Get.locale!.languageCode
+                                              .compareTo("ar") ==
                                               0
-                                          ? reward.nameAr
-                                          : reward.nameEn
-                                    })),
+                                              ? reward.nameAr
+                                              : reward.nameEn
+                                        })),
                                     textConfirm: "Redeem".tr,
                                     confirmTextColor:
-                                        Theme.of(context).colorScheme.primary,
+                                    Theme.of(context).colorScheme.primary,
                                     textCancel: "Cancel".tr,
                                     cancelTextColor:
-                                        Theme.of(context).colorScheme.primary,
+                                    Theme.of(context).colorScheme.primary,
                                     onConfirm: () {
                                       controller.redeemPoints(reward);
                                       Get.back();
@@ -618,20 +553,20 @@ class HomePage extends StatelessWidget {
                                   child: Center(
                                     child: Column(
                                       mainAxisAlignment:
-                                          MainAxisAlignment.spaceAround,
+                                      MainAxisAlignment.spaceAround,
                                       children: [
                                         CachedNetworkImage(
                                           height: 40,
                                           imageUrl: reward.imageUrl,
                                           placeholder: (context, url) =>
-                                              const CircularProgressIndicator(),
+                                          const CircularProgressIndicator(),
                                           errorWidget: (context, url, error) =>
-                                              const Icon(Icons.error),
+                                          const Icon(Icons.error),
                                         ),
                                         Text(
                                           Get.locale!.languageCode
-                                                      .compareTo("ar") ==
-                                                  0
+                                              .compareTo("ar") ==
+                                              0
                                               ? reward.nameAr
                                               : reward.nameEn,
                                           overflow: TextOverflow.fade,
@@ -639,11 +574,11 @@ class HomePage extends StatelessWidget {
                                               .textTheme
                                               .bodySmall!
                                               .copyWith(
-                                                fontWeight: FontWeight.bold,
-                                                color: Theme.of(context)
-                                                    .colorScheme
-                                                    .primary,
-                                              ),
+                                            fontWeight: FontWeight.bold,
+                                            color: Theme.of(context)
+                                                .colorScheme
+                                                .primary,
+                                          ),
                                         ),
                                       ],
                                     ),

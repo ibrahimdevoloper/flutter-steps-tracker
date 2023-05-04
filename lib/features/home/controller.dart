@@ -1,10 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_steps_tracker/Models/redeem/redeem.dart';
 import 'package:flutter_steps_tracker/Models/reward/reward.dart';
 import 'package:flutter_steps_tracker/Models/steps_number/steps_number.dart';
 import 'package:flutter_steps_tracker/Models/user_data/user_data.dart';
-import 'package:flutter_steps_tracker/features/home/Services/pedometer_service.dart';
+import 'package:flutter_steps_tracker/Services/pedometer_service.dart';
+import 'package:flutter_steps_tracker/features/sign_in/view.dart';
 import 'package:flutter_steps_tracker/utilities/custom_snackbar.dart';
 import 'package:flutter_steps_tracker/utilities/project_constants.dart';
 import 'package:flutter_steps_tracker/utilities/sound_service.dart';
@@ -33,6 +35,7 @@ class HomeController extends GetxController {
   static var main = "main";
 
   HomeController() {
+    _userid = pref.getString(ProjectConstants.userId)!;
     _db = FirebaseFirestore.instance;
     getData();
     _soundService = Get.find();
@@ -66,10 +69,11 @@ class HomeController extends GetxController {
   incrementFirestoreSteps() async {
     try {
       var userData = _userData;
-      userData!.stepCount = stepCount.toDouble();
-      userData.totalPoints = healthPoints.toDouble();
-      userData.remainingPoints = userData.totalPoints - userData.redeemedPoints;
-      await _db.collection("users").doc(_userid).update(userData.toJson());
+      userData?.stepCount = stepCount.toDouble();
+      userData?.totalPoints = healthPoints.toDouble();
+      userData?.remainingPoints =
+          userData.totalPoints - userData.redeemedPoints;
+      await _db.collection("users").doc(_userid).update(userData!.toJson());
       var stepsNumber = StepsNumber(stepCount.toDouble(),
           Timestamp.now().millisecondsSinceEpoch, 1, null);
       await _db
@@ -97,7 +101,6 @@ class HomeController extends GetxController {
   }
 
   redeemPoints(Reward reward) async {
-    _userid = pref.getString(ProjectConstants.userId)!;
     var userDoc = await _db.collection("users").doc(_userid).get();
     var userData = UserData.fromJson(userDoc.data()!);
     var remainingPoints = userData.remainingPoints.toInt();
@@ -123,7 +126,7 @@ class HomeController extends GetxController {
     try {
       _isloading = true;
       update([main]);
-      _userid = pref.getString(ProjectConstants.userId)!;
+      // _userid = pref.getString(ProjectConstants.userId) ?? "";
       var userDocs = await _db
           .collection("users")
           .limit(3)
@@ -149,6 +152,17 @@ class HomeController extends GetxController {
     }
   }
 
+  signOut() async {
+    try {
+      pref.setString(ProjectConstants.username, "");
+      pref.setString(ProjectConstants.userId, "");
+      await FirebaseAuth.instance.signOut();
+      Get.offAll(() => SignInPage());
+    } catch (e) {
+      print(e);
+    }
+  }
+
   int get stepCount => _stepCount;
 
   int get healthPoints => _healthPoints;
@@ -157,7 +171,7 @@ class HomeController extends GetxController {
 
   List<UserData> get users => _users;
 
-  UserData get userData => _userData!;
+  UserData? get userData => _userData;
 
   get isloading => _isloading;
 }
