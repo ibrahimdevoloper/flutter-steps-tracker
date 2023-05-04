@@ -152,15 +152,51 @@ class HomeController extends GetxController {
     }
   }
 
-  signOut() async {
-    try {
-      pref.setString(ProjectConstants.username, "");
-      pref.setString(ProjectConstants.userId, "");
-      await FirebaseAuth.instance.signOut();
-      Get.offAll(() => SignInPage());
-    } catch (e) {
-      print(e);
-    }
+  signOutDialog() async {
+    Get.back();
+    Get.defaultDialog(
+      title: "Sign Out".tr,
+      content: Text("Are you sure"),
+      textCancel: "Cancel",
+      onCancel: () {
+        Get.back();
+        Get.back();
+      },
+      textConfirm: "Sign Out".tr,
+      onConfirm: () async {
+        await signOut();
+      },
+    );
+  }
+
+  Future<void> signOut() async {
+    pref.setString(ProjectConstants.username, "");
+    pref.setString(ProjectConstants.userId, "");
+    await FirebaseAuth.instance.signOut();
+    Get.offAll(() => SignInPage());
+  }
+
+  deleteAccountDialog() async {
+    //TODO: modifiy the function
+    Get.back();
+    Get.defaultDialog(
+      title: "Sign Out".tr,
+      content: Text("Are you sure"),
+      textCancel: "Cancel",
+      onCancel: () {
+        Get.back();
+        Get.back();
+      },
+      textConfirm: "Sign Out".tr,
+      onConfirm: () async {
+        await deleteAccount();
+      },
+    );
+  }
+
+  Future<void> deleteAccount() async {
+    //TODO: modifiy the function
+    signOut();
   }
 
   int get stepCount => _stepCount;

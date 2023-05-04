@@ -131,7 +131,7 @@ class HomePage extends StatelessWidget {
                 ),
                 onTap: () {
                   //TODO: add conformation Dialog
-                  controller.signOut();
+                  controller.signOutDialog();
                 },
               ),
               ListTile(
