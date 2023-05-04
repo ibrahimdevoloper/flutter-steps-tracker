@@ -140,7 +140,6 @@ class SignUpPage extends StatelessWidget {
                       id: SignUpController.confirmPasswordTag,
                       init: controller,
                       builder: (controller) {
-                        print("builder: ${controller.isPasswordObscure}");
                         return TextField(
                           obscureText: controller.isConfirmPasswordObscure,
                           decoration: InputDecoration(
