@@ -130,7 +130,6 @@ class HomePage extends StatelessWidget {
                       ),
                 ),
                 onTap: () {
-                  //TODO: add conformation Dialog
                   controller.signOutDialog();
                 },
               ),
@@ -143,7 +142,7 @@ class HomePage extends StatelessWidget {
                       ),
                 ),
                 onTap: () {
-                  //TODO: delete account
+                  controller.deleteAccountDialog();
                 },
               ),
               SwitchListTile(

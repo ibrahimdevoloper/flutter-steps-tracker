@@ -106,6 +106,22 @@ class MainMaterialApp extends StatelessWidget {
         translations: Messages(),
         locale: Get.deviceLocale,
         darkTheme: ThemeData(
+          dialogTheme: DialogTheme(
+            backgroundColor: Colors.grey[800],
+            elevation: 10,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(8),
+            ),
+            titleTextStyle: GoogleFonts.cairo(
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+              fontSize: 24,
+            ),
+            contentTextStyle: GoogleFonts.cairo(
+              color: Colors.white,
+              fontSize: 16,
+            ),
+          ),
           brightness: Brightness.dark,
           colorScheme: ColorScheme.fromSwatch().copyWith(
             brightness: Brightness.dark,
@@ -116,6 +132,12 @@ class MainMaterialApp extends StatelessWidget {
         ),
         theme: ThemeData(
             brightness: Brightness.light,
+            dialogTheme: DialogTheme(
+              elevation: 10,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8),
+              ),
+            ),
             colorScheme: ColorScheme.fromSwatch().copyWith(
               brightness: Brightness.light,
               primary: const Color(0xFF5BB318),

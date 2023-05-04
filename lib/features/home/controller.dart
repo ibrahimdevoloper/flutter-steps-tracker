@@ -6,6 +6,7 @@ import 'package:flutter_steps_tracker/Models/reward/reward.dart';
 import 'package:flutter_steps_tracker/Models/steps_number/steps_number.dart';
 import 'package:flutter_steps_tracker/Models/user_data/user_data.dart';
 import 'package:flutter_steps_tracker/Services/pedometer_service.dart';
+import 'package:flutter_steps_tracker/features/home/dialogs/confirmation_dialog.dart';
 import 'package:flutter_steps_tracker/features/sign_in/view.dart';
 import 'package:flutter_steps_tracker/utilities/custom_snackbar.dart';
 import 'package:flutter_steps_tracker/utilities/project_constants.dart';
@@ -154,19 +155,14 @@ class HomeController extends GetxController {
 
   signOutDialog() async {
     Get.back();
-    Get.defaultDialog(
-      title: "Sign Out".tr,
-      content: Text("Are you sure"),
-      textCancel: "Cancel",
-      onCancel: () {
-        Get.back();
-        Get.back();
-      },
-      textConfirm: "Sign Out".tr,
-      onConfirm: () async {
-        await signOut();
-      },
-    );
+    var isConfirmed =
+        await showConfirmationDialog("Sign Out".tr, "Are you sure?".tr);
+    if (isConfirmed == true) {
+      await signOut();
+    } else {
+      Get.back();
+      Get.back();
+    }
   }
 
   Future<void> signOut() async {
@@ -177,25 +173,19 @@ class HomeController extends GetxController {
   }
 
   deleteAccountDialog() async {
-    //TODO: modifiy the function
     Get.back();
-    Get.defaultDialog(
-      title: "Sign Out".tr,
-      content: Text("Are you sure"),
-      textCancel: "Cancel",
-      onCancel: () {
-        Get.back();
-        Get.back();
-      },
-      textConfirm: "Sign Out".tr,
-      onConfirm: () async {
-        await deleteAccount();
-      },
-    );
+    var isConfirmed =
+        await showConfirmationDialog("Delete Account".tr, "Are you sure?");
+    if (isConfirmed == true) {
+      await deleteAccount();
+    } else {
+      Get.back();
+      Get.back();
+    }
   }
 
   Future<void> deleteAccount() async {
-    //TODO: modifiy the function
+    await _db.collection("users").doc(_userid).delete();
     signOut();
   }
 
