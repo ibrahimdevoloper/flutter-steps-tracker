@@ -6,6 +6,7 @@ import 'package:flutter_steps_tracker/Models/reward/reward.dart';
 import 'package:flutter_steps_tracker/Models/steps_number/steps_number.dart';
 import 'package:flutter_steps_tracker/Models/user_data/user_data.dart';
 import 'package:flutter_steps_tracker/Services/pedometer_service.dart';
+import 'package:flutter_steps_tracker/core/mixins/privacy_and_terms_mixin.dart';
 import 'package:flutter_steps_tracker/features/home/dialogs/confirmation_dialog.dart';
 import 'package:flutter_steps_tracker/features/sign_in/view.dart';
 import 'package:flutter_steps_tracker/utilities/custom_snackbar.dart';
@@ -15,7 +16,7 @@ import 'package:get/get.dart';
 import 'package:pedometer/pedometer.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class HomeController extends GetxController {
+class HomeController extends GetxController with PrivacyAndTermsMixin {
   final PedometerService _pedometerService = PedometerService();
   static const stepCounterTag = 'stepCounter';
   static const heathPointsTag = 'heathPoints';

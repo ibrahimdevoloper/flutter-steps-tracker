@@ -1,7 +1,9 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_steps_tracker/features/sign_in_with_email/view.dart';
 import 'package:flutter_steps_tracker/utilities/project_constants.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sign_button/sign_button.dart';
 import 'package:simple_gradient_text/simple_gradient_text.dart';
@@ -170,7 +172,51 @@ class SignInPage extends StatelessWidget {
                         }
                       }),
                 ),
-              )
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8),
+                child: RichText(
+                  textAlign: TextAlign.center,
+                  text: TextSpan(
+                    text: "By Signing in You Are Agreeing to Our\n",
+                    style: GoogleFonts.cairo(
+                      color: Get.isDarkMode ? Colors.white : Colors.black54,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    children: [
+                      TextSpan(
+                        text: "Terms of Service",
+                        style: GoogleFonts.cairo(
+                          color: Get.theme.colorScheme.primary,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        recognizer: TapGestureRecognizer()
+                          ..onTap = () {
+                            controller.goToTermsAndCondition();
+                          },
+                      ),
+                      TextSpan(
+                        text: " and ",
+                        style: GoogleFonts.cairo(
+                          color: Get.isDarkMode ? Colors.white : Colors.black54,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      TextSpan(
+                        text: "Privacy Policy",
+                        style: GoogleFonts.cairo(
+                          color: Get.theme.colorScheme.primary,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        recognizer: TapGestureRecognizer()
+                          ..onTap = () {
+                            controller.goToPrivacyPolicy();
+                          },
+                      ),
+                    ],
+                  ),
+                ),
+              ),
             ],
           ),
         ));

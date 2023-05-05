@@ -111,6 +111,30 @@ class HomePage extends StatelessWidget {
               ),
               ListTile(
                 title: Text(
+                  "Privacy Policy",
+                  style: Theme.of(context).textTheme.labelLarge!.copyWith(
+                        fontWeight: FontWeight.bold,
+                        color: Theme.of(context).colorScheme.primary,
+                      ),
+                ),
+                onTap: () {
+                  controller.goToPrivacyPolicy();
+                },
+              ),
+              ListTile(
+                title: Text(
+                  "Terms and Conditions",
+                  style: Theme.of(context).textTheme.labelLarge!.copyWith(
+                        fontWeight: FontWeight.bold,
+                        color: Theme.of(context).colorScheme.primary,
+                      ),
+                ),
+                onTap: () {
+                  controller.goToTermsAndCondition();
+                },
+              ),
+              ListTile(
+                title: Text(
                   "History".tr,
                   style: Theme.of(context).textTheme.labelLarge!.copyWith(
                         fontWeight: FontWeight.bold,
