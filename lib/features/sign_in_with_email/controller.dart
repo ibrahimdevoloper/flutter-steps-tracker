@@ -37,6 +37,7 @@ class SignInWithEmailController extends GetxController {
     _db = Platform.environment.containsKey('FLUTTER_TEST')
         ? FakeFirebaseFirestore()
         : FirebaseFirestore.instance;
+    _auth.setLanguageCode(Get.locale?.languageCode ?? "en");
   }
 
   bool validator() {
@@ -110,7 +111,7 @@ class SignInWithEmailController extends GetxController {
           showErrorSnakebar("Auth service is not provided.".tr);
           break;
         default:
-          showErrorSnakebar("Unknown error.".tr);
+          showErrorSnakebar(e.message ?? "Unknown error.".tr);
       }
       _isloading = false;
       update([registerButtonTag]);

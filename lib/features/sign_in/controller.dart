@@ -54,7 +54,7 @@ class SignInController extends GetxController with PrivacyAndTermsMixin {
           .count()
           .get();
 
-      if (usersCount.count < 1) {
+      if ((usersCount.count ?? 0) < 1) {
         var userDoc = await _db.collection("users").add({
           "user_id": userCredential.user?.uid,
           "email": selectedGoogleAccount.email,
