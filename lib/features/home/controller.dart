@@ -1,3 +1,4 @@
+import 'package:app_settings/app_settings.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -11,9 +12,9 @@ import 'package:flutter_steps_tracker/features/home/dialogs/confirmation_dialog.
 import 'package:flutter_steps_tracker/features/sign_in/view.dart';
 import 'package:flutter_steps_tracker/utilities/custom_snackbar.dart';
 import 'package:flutter_steps_tracker/utilities/project_constants.dart';
-import 'package:flutter_steps_tracker/utilities/sound_service.dart';
 import 'package:get/get.dart';
 import 'package:pedometer/pedometer.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeController extends GetxController with PrivacyAndTermsMixin {
@@ -52,6 +53,41 @@ class HomeController extends GetxController with PrivacyAndTermsMixin {
     var isDarkMode = pref.getBool(ProjectConstants.isDarkMode) ??
         ThemeMode.system == ThemeMode.dark;
     Get.changeThemeMode(isDarkMode ? ThemeMode.light : ThemeMode.dark);
+  }
+
+  Future<bool> requestPermission() async {
+    var activityRecognitionPermission = Permission.activityRecognition;
+    await activityRecognitionPermission.request();
+
+    var status = await activityRecognitionPermission.status;
+
+    if (status.isGranted) {
+      print("isGranted: ${status.isGranted}");
+      return true;
+    } else if ((await activityRecognitionPermission
+        .shouldShowRequestRationale)) {
+      print(
+          "shouldShowRequestRationale: ${await activityRecognitionPermission.shouldShowRequestRationale}");
+      await showConfirmationDialog("Enabling Permission".tr,
+          "In order to use the app you need to accept the requested permission.\nThis permission is only for counting steps.");
+      return await requestPermission();
+    } else if (status.isPermanentlyDenied || status.isDenied) {
+      print("isPermanentlyDenied: ${status.isPermanentlyDenied}");
+      var isConfirmed = await showConfirmationDialog("Enabling Permission".tr,
+          "In order to use the app you need to accept the requested permission.\nif you accept, you will be redirected to the app setting, otherwise you will sign out.");
+      if (isConfirmed == true) {
+        print("opening app setting");
+        await AppSettings.openAppSettings();
+        print("closing app setting");
+        return await requestPermission();
+      } else {
+        print("sign out");
+        await signOut();
+        return false;
+      }
+    } else {
+      return false;
+    }
   }
 
   incrementSteps() {
