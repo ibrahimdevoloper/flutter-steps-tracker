@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_html/flutter_html.dart';
+// import 'package:flutter_html/flutter_html.dart';
 
 class HtmlDisplayPagePage extends StatelessWidget {
   // final controller = Get.put(HtmlDisplayPageController());
@@ -19,9 +19,9 @@ class HtmlDisplayPagePage extends StatelessWidget {
         backgroundColor: Theme.of(context).colorScheme.primary,
         title: Text(title),
       ),
-      body: SingleChildScrollView(
-        child: Html(data: content),
-      ),
+      // body: SingleChildScrollView(
+      //   child: Html(data: content),
+      // ),
     );
   }
 }

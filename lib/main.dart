@@ -1,20 +1,25 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_steps_tracker/core/models/version_information/version_information.dart';
 import 'package:flutter_steps_tracker/features/home/view.dart';
 import 'package:flutter_steps_tracker/features/splash/view.dart';
 import 'package:flutter_steps_tracker/utilities/project_constants.dart';
-import 'package:flutter_steps_tracker/utilities/sound_service.dart';
 import 'package:flutter_steps_tracker/utilities/translation.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'features/sign_in/view.dart';
 import 'firebase_options.dart';
 
-main() {
+main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const MyApp());
 }
 
@@ -25,27 +30,31 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return FutureBuilder<List>(
       future: Future.wait([
-        Firebase.initializeApp(
-          options: DefaultFirebaseOptions.currentPlatform,
-        ),
         SharedPreferences.getInstance(),
+        getLatestVersionCode(),
         Future.delayed(const Duration(seconds: 3)),
       ]),
       builder: (context, snapshot) {
+        VersionInformation? versionInformation;
         if (snapshot.hasData) {
-          SharedPreferences pref = snapshot.data![1];
+          SharedPreferences pref = snapshot.data![0];
+          versionInformation = snapshot.data![1];
           Get.put(pref);
 
-          var soundService = SoundService();
-          Get.put(soundService);
+          // var soundService = SoundService();
+          // Get.put(soundService);
+        } else if (snapshot.hasError) {
+          print(snapshot.error);
         }
 
         return MainMaterialApp(
-            child: snapshot.hasData
-                ? const UserStreamBuilder()
-                : snapshot.connectionState == ConnectionState.waiting
-                    ? const SplashPage()
-                    : const DefaultErrorWidget());
+            child: (versionInformation?.isMandatory ?? false)
+                ? VersionBlockPage(versionInformation: versionInformation!)
+                : snapshot.hasData
+                    ? const UserStreamBuilder()
+                    : snapshot.connectionState == ConnectionState.waiting
+                        ? const SplashPage()
+                        : const DefaultErrorWidget());
       },
     );
   }
@@ -55,6 +64,26 @@ class MyApp extends StatelessWidget {
     var localeLang = pref.getString(ProjectConstants.isArabic) ?? "en";
     var locale = Locale(localeLang);
     await Get.updateLocale(locale);
+  }
+
+  Future<VersionInformation?> getLatestVersionCode() async {
+    final info = await PackageInfo.fromPlatform();
+    var currentVersionNumber = info.buildNumber;
+    print(currentVersionNumber);
+    var versionInformation = await FirebaseFirestore.instance
+        .collection("versions")
+        .limit(1)
+        .where("version_number",
+            isGreaterThan: int.tryParse(currentVersionNumber) ?? 1)
+        .orderBy("version_number", descending: true)
+        .withConverter<VersionInformation?>(
+          fromFirestore: (snapshot, options) => snapshot.data() != null
+              ? VersionInformation.fromJson(snapshot.data()!)
+              : null,
+          toFirestore: (value, options) => {},
+        )
+        .get();
+    return versionInformation.docs.first.data();
   }
 }
 
@@ -104,7 +133,10 @@ class MainMaterialApp extends StatelessWidget {
     return GetMaterialApp(
         title: 'Flutter Demo',
         translations: Messages(),
+        //TODO: get the user's preferred language from GetStorage.
         locale: Get.deviceLocale,
+        //TODO: get the user's preferred theme from GetStorage.
+        // themeMode: ThemeMode.dark,
         darkTheme: ThemeData(
           dialogTheme: DialogTheme(
             backgroundColor: Colors.grey[800],
@@ -128,7 +160,8 @@ class MainMaterialApp extends StatelessWidget {
             primary: const Color(0xFF5BB318),
             secondary: const Color(0xFFEAE509),
           ),
-          textTheme: GoogleFonts.cairoTextTheme(),
+          textTheme: GoogleFonts.cairoTextTheme(
+              ThemeData(brightness: Brightness.dark).textTheme),
         ),
         theme: ThemeData(
             brightness: Brightness.light,
@@ -145,5 +178,118 @@ class MainMaterialApp extends StatelessWidget {
             ),
             textTheme: GoogleFonts.cairoTextTheme()),
         home: child);
+  }
+}
+
+class VersionBlockPage extends StatelessWidget {
+  final VersionInformation versionInformation;
+  late List<String> features;
+  late List<String> bugFixes;
+
+  VersionBlockPage({
+    super.key,
+    required this.versionInformation,
+  }) {
+    features = Get.locale?.languageCode == "ar"
+        ? versionInformation.newFeaturesAr
+        : versionInformation.newFeaturesEn;
+    bugFixes = Get.locale?.languageCode == "ar"
+        ? versionInformation.bugFixesAr
+        : versionInformation.bugFixesEn;
+  }
+
+  // _launchURL(String url) async {
+  //   if (await canLaunch(url)) {
+  //     await launch(url);
+  //   }
+  //   else {
+  //     showErrorSnakebar(message)
+  //   }
+  // }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        title: Text(
+          'Version ${versionInformation.versionName}',
+          style: TextStyle(
+              fontWeight: FontWeight.bold,
+              color: Theme.of(context).colorScheme.primary),
+        ),
+        elevation: 0,
+        backgroundColor: Colors.transparent,
+      ),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Row(
+              children: [
+                Icon(
+                  Icons.warning,
+                  color: Colors.red,
+                ),
+                SizedBox(width: 8.0),
+                Expanded(
+                  child: Text(
+                    'This version contains important changes. Please update to the latest version.',
+                    style: TextStyle(
+                      color: Colors.red,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(height: 16.0),
+            Text(
+              'Release Date: ${versionInformation.releaseDate}',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 18.0,
+              ),
+            ),
+            SizedBox(height: 16.0),
+            Text(
+              Get.locale?.languageCode == "ar"
+                  ? versionInformation.descriptionAr
+                  : versionInformation.descriptionEn,
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 18.0,
+              ),
+            ),
+            SizedBox(height: 16.0),
+            Text(
+              'New Features:',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 18.0,
+              ),
+            ),
+            for (var feature in features) Text('• $feature'),
+            SizedBox(height: 16.0),
+            Text(
+              'Bug Fixes:',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 18.0,
+              ),
+            ),
+            for (var bugFix in bugFixes) Text('• $bugFix'),
+            SizedBox(height: 16.0),
+            ElevatedButton(
+              onPressed: () {
+                // Redirect to app store link
+              },
+              child: Text('Update Now'),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }
