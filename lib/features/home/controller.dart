@@ -20,7 +20,8 @@ class HomeController extends GetxController with PrivacyAndTermsMixin {
   final PedometerService _pedometerService = PedometerService();
   static const stepCounterTag = 'stepCounter';
   static const heathPointsTag = 'heathPoints';
-  late SoundService _soundService;
+
+  // late SoundService _soundService;
 
   late FirebaseFirestore _db;
   var _isloading = false;
@@ -39,8 +40,11 @@ class HomeController extends GetxController with PrivacyAndTermsMixin {
   HomeController() {
     _userid = pref.getString(ProjectConstants.userId)!;
     _db = FirebaseFirestore.instance;
-    getData();
-    _soundService = Get.find();
+    requestPermission().then((value) {
+      if (value) getData();
+    });
+    // getData();
+    // _soundService = Get.find();
   }
 
   @override
@@ -58,7 +62,7 @@ class HomeController extends GetxController with PrivacyAndTermsMixin {
       _stepCount = event.steps;
       if (_stepCount % 20 == 0 &&
           pedoStatus?.status.compareTo("walking") == 0) {
-        _soundService.play();
+        // _soundService.play();
         _healthPoints++;
         update([heathPointsTag]);
         incrementFirestoreSteps();
