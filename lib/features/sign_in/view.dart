@@ -1,7 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_steps_tracker/core/utilities/project_constants.dart';
 import 'package:flutter_steps_tracker/features/sign_in_with_email/view.dart';
-import 'package:flutter_steps_tracker/utilities/project_constants.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -110,6 +110,7 @@ class SignInPage extends StatelessWidget {
                             children: [
                               SignInButton(
                                 buttonType: ButtonType.googleDark,
+                                btnText: "Sign in with Google".tr,
                                 onPressed: () {
                                   controller.googleLogin();
                                 },
@@ -123,6 +124,7 @@ class SignInPage extends StatelessWidget {
                               ),
                               SignInButton(
                                 buttonType: ButtonType.mail,
+                                btnText: "Sign in with E-mail".tr,
                                 btnColor: Get.theme.colorScheme.primary,
                                 onPressed: () {
                                   Get.to(() => SignInWithEmailPage());

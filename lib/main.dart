@@ -3,6 +3,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_steps_tracker/core/models/version_information/version_information.dart';
+import 'package:flutter_steps_tracker/core/utilities/project_constants.dart';
+import 'package:flutter_steps_tracker/core/utilities/translation.dart';
 import 'package:flutter_steps_tracker/features/home/view.dart';
 import 'package:flutter_steps_tracker/features/splash/view.dart';
 import 'package:flutter_steps_tracker/utilities/project_constants.dart';
