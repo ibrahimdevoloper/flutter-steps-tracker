@@ -1,9 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter_steps_tracker/Models/redeem/redeem.dart';
-import 'package:flutter_steps_tracker/Models/reward/reward.dart';
-import 'package:flutter_steps_tracker/Models/user_data/user_data.dart';
-import 'package:flutter_steps_tracker/utilities/custom_snackbar.dart';
-import 'package:flutter_steps_tracker/utilities/project_constants.dart';
+import 'package:flutter_steps_tracker/core/models/redeem/redeem.dart';
+import 'package:flutter_steps_tracker/core/models/reward/reward.dart';
+import 'package:flutter_steps_tracker/core/models/user_data/user_data.dart';
+import 'package:flutter_steps_tracker/core/utilities/custom_snackbar.dart';
+import 'package:flutter_steps_tracker/core/utilities/project_constants.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

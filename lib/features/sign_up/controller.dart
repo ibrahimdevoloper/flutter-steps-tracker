@@ -5,9 +5,9 @@ import 'package:email_validator/email_validator.dart';
 import 'package:fake_cloud_firestore/fake_cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_auth_mocks/firebase_auth_mocks.dart';
+import 'package:flutter_steps_tracker/core/utilities/custom_snackbar.dart';
+import 'package:flutter_steps_tracker/core/utilities/project_constants.dart';
 import 'package:flutter_steps_tracker/features/home/view.dart';
-import 'package:flutter_steps_tracker/utilities/custom_snackbar.dart';
-import 'package:flutter_steps_tracker/utilities/project_constants.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

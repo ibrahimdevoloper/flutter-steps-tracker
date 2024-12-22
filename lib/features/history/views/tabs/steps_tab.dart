@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_steps_tracker/core/functions/date_formatter.dart';
 import 'package:flutter_steps_tracker/features/history/controller.dart';
-import 'package:flutter_steps_tracker/functions/date_formatter.dart';
 import 'package:get/get.dart';
 
 class StepsTab extends StatelessWidget {

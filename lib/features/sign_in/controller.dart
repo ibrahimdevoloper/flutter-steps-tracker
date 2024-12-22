@@ -1,10 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_steps_tracker/Models/user_data/user_data.dart';
 import 'package:flutter_steps_tracker/core/mixins/privacy_and_terms_mixin.dart';
+import 'package:flutter_steps_tracker/core/models/user_data/user_data.dart';
+import 'package:flutter_steps_tracker/core/utilities/custom_snackbar.dart';
+import 'package:flutter_steps_tracker/core/utilities/project_constants.dart';
 import 'package:flutter_steps_tracker/features/home/view.dart';
-import 'package:flutter_steps_tracker/utilities/custom_snackbar.dart';
-import 'package:flutter_steps_tracker/utilities/project_constants.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:permission_handler/permission_handler.dart';

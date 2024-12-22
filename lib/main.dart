@@ -7,8 +7,6 @@ import 'package:flutter_steps_tracker/core/utilities/project_constants.dart';
 import 'package:flutter_steps_tracker/core/utilities/translation.dart';
 import 'package:flutter_steps_tracker/features/home/view.dart';
 import 'package:flutter_steps_tracker/features/splash/view.dart';
-import 'package:flutter_steps_tracker/utilities/project_constants.dart';
-import 'package:flutter_steps_tracker/utilities/translation.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:package_info_plus/package_info_plus.dart';
@@ -71,8 +69,8 @@ class MyApp extends StatelessWidget {
   Future<VersionInformation?> getLatestVersionCode() async {
     final info = await PackageInfo.fromPlatform();
     var currentVersionNumber = info.buildNumber;
-    print(currentVersionNumber);
-    var versionInformation = await FirebaseFirestore.instance
+    VersionInformation? versionInformation;
+    var versionInformationQuary = await FirebaseFirestore.instance
         .collection("versions")
         .limit(1)
         .where("version_number",
@@ -85,7 +83,10 @@ class MyApp extends StatelessWidget {
           toFirestore: (value, options) => {},
         )
         .get();
-    return versionInformation.docs.first.data();
+    if (versionInformationQuary.docs.isNotEmpty) {
+      versionInformation = versionInformationQuary.docs.first.data();
+    }
+    return null;
   }
 }
 

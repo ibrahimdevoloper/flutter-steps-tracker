@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter_steps_tracker/Models/user_data/user_data.dart';
-import 'package:flutter_steps_tracker/utilities/custom_snackbar.dart';
+import 'package:flutter_steps_tracker/core/models/user_data/user_data.dart';
+import 'package:flutter_steps_tracker/core/utilities/custom_snackbar.dart';
 import 'package:get/get.dart';
 
 class LeaderboardController extends GetxController {
