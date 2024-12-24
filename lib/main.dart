@@ -131,6 +131,15 @@ class MainMaterialApp extends StatelessWidget {
 
   const MainMaterialApp({super.key, required this.child});
 
+  ThemeMode _getThemeMode() {
+    final box = Get.find<SharedPreferences>();
+    final isDarkMode = box.getBool('isDarkMode');
+    if (isDarkMode == null) {
+      return ThemeMode.system;
+    }
+    return isDarkMode ? ThemeMode.dark : ThemeMode.light;
+  }
+
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
@@ -139,8 +148,10 @@ class MainMaterialApp extends StatelessWidget {
         //TODO: get the user's preferred language from GetStorage.
         locale: Get.deviceLocale,
         //TODO: get the user's preferred theme from GetStorage.
-        // themeMode: ThemeMode.dark,
+        themeMode: ThemeMode.dark,
+        // themeMode: _getThemeMode(),
         darkTheme: ThemeData(
+          scaffoldBackgroundColor: Colors.grey[800],
           dialogTheme: DialogTheme(
             backgroundColor: Colors.grey[800],
             elevation: 10,
@@ -167,6 +178,7 @@ class MainMaterialApp extends StatelessWidget {
               ThemeData(brightness: Brightness.dark).textTheme),
         ),
         theme: ThemeData(
+            scaffoldBackgroundColor: Colors.white60,
             brightness: Brightness.light,
             dialogTheme: DialogTheme(
               elevation: 10,
