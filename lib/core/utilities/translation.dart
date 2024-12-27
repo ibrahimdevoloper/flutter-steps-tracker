@@ -111,7 +111,7 @@ class Messages extends Translations {
           "Auth service is not provided.": "لم تزود بخدمة تسجيل الدخول.",
           "Unknown error.": "خطأ غير معروف.",
           "Sign in with E-mail": "سجل بالبريد الالكتروني",
-          "Sign in with Google": "تسجيل دخول بحساب غوغل",
+          "Sign in with Google": "سجل بحساب غوغل",
           "Full Name": "الاسم",
           "Sign in": "تسجيل دخول",
           "Sign up": "تسجيل حساب",
