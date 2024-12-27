@@ -8,6 +8,8 @@ part 'user_data.g.dart';
 class UserData {
   @JsonKey(name: 'user_id')
   String id;
+  @JsonKey(defaultValue: "")
+  String docId;
   @JsonKey(name: 'name')
   String name;
   @JsonKey(name: 'email')
@@ -26,6 +28,6 @@ class UserData {
 
   Map<String, Object?> toJson() => _$UserDataToJson(this);
 
-  UserData(this.id, this.name, this.email, this.redeemedPoints,
+  UserData(this.id, this.docId, this.name, this.email, this.redeemedPoints,
       this.remainingPoints, this.stepCount, this.totalPoints);
 }
