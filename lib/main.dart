@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_steps_tracker/core/models/version_information/version_information.dart';
+import 'package:flutter_steps_tracker/core/services/firestore_service.dart';
 import 'package:flutter_steps_tracker/core/utilities/project_constants.dart';
 import 'package:flutter_steps_tracker/core/utilities/translation.dart';
 import 'package:flutter_steps_tracker/features/home/view.dart';
@@ -40,6 +41,7 @@ class MyApp extends StatelessWidget {
           SharedPreferences pref = snapshot.data![0];
           versionInformation = snapshot.data![1];
           Get.put(pref);
+          Get.put(FirestoreService(FirebaseFirestore.instance));
 
           // var soundService = SoundService();
           // Get.put(soundService);
@@ -86,7 +88,7 @@ class MyApp extends StatelessWidget {
     if (versionInformationQuary.docs.isNotEmpty) {
       versionInformation = versionInformationQuary.docs.first.data();
     }
-    return null;
+    return versionInformation;
   }
 }
 
