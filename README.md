@@ -37,5 +37,4 @@
 4. [x] The application support iOS because the permissions and firebase configuration were added, but not tested on physical device.
 
 ## For contact
-E-mail: ibrahimarc@outlook.com
-Phone Number: +963959504146
+- E-mail: ibrahimarc@outlook.com
