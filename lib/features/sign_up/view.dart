@@ -30,7 +30,9 @@ class SignUpPage extends StatelessWidget {
                 GradientText(
                   "Steptiper",
                   style: const TextStyle(
-                      fontSize: 40.0, fontWeight: FontWeight.bold),
+                    fontSize: 40.0,
+                    fontWeight: FontWeight.bold,
+                  ),
                   colors: [
                     Theme.of(context).colorScheme.primary,
                     Theme.of(context).colorScheme.secondary,
@@ -39,8 +41,9 @@ class SignUpPage extends StatelessWidget {
                 Text(
                   "Register for new account".tr,
                   style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Theme.of(context).colorScheme.primary),
+                    fontWeight: FontWeight.bold,
+                    color: Theme.of(context).colorScheme.primary,
+                  ),
                 ),
                 const SizedBox(
                   height: 56,
@@ -59,6 +62,18 @@ class SignUpPage extends StatelessWidget {
                             errorText: controller.fullNameErrorMessage,
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(16),
+                              borderSide: BorderSide(
+                                color: Theme.of(context).colorScheme.primary,
+                              ),
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(16),
+                              borderSide: BorderSide(
+                                color: Theme.of(context)
+                                    .colorScheme
+                                    .secondary, // Active border color
+                                width: 2.0, // Optional: Adjust the border width
+                              ),
                             ),
                             hintText: "Full Name".tr,
                           ),
@@ -85,6 +100,18 @@ class SignUpPage extends StatelessWidget {
                             errorText: controller.emailErrorMessage,
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(16),
+                              borderSide: BorderSide(
+                                color: Theme.of(context).colorScheme.primary,
+                              ),
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(16),
+                              borderSide: BorderSide(
+                                color: Theme.of(context)
+                                    .colorScheme
+                                    .secondary, // Active border color
+                                width: 2.0, // Optional: Adjust the border width
+                              ),
                             ),
                             hintText: "E-mail".tr,
                           ),
@@ -110,15 +137,30 @@ class SignUpPage extends StatelessWidget {
                           obscureText: controller.isPasswordObscure,
                           decoration: InputDecoration(
                             suffix: IconButton(
-                                onPressed: () {
-                                  controller.switchPasswordObscure();
-                                },
-                                icon: Icon(controller.isPasswordObscure
+                              onPressed: () {
+                                controller.switchPasswordObscure();
+                              },
+                              icon: Icon(
+                                controller.isPasswordObscure
                                     ? Icons.visibility
-                                    : Icons.visibility_off)),
+                                    : Icons.visibility_off,
+                              ),
+                            ),
                             errorText: controller.passwordErrorMessage,
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(16),
+                              borderSide: BorderSide(
+                                color: Theme.of(context).colorScheme.primary,
+                              ),
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(16),
+                              borderSide: BorderSide(
+                                color: Theme.of(context)
+                                    .colorScheme
+                                    .secondary, // Active border color
+                                width: 2.0, // Optional: Adjust the border width
+                              ),
                             ),
                             hintText: "Password".tr,
                           ),
@@ -144,15 +186,30 @@ class SignUpPage extends StatelessWidget {
                           obscureText: controller.isConfirmPasswordObscure,
                           decoration: InputDecoration(
                             suffix: IconButton(
-                                onPressed: () {
-                                  controller.switchConfirmPasswordObscure();
-                                },
-                                icon: Icon(controller.isConfirmPasswordObscure
+                              onPressed: () {
+                                controller.switchConfirmPasswordObscure();
+                              },
+                              icon: Icon(
+                                controller.isConfirmPasswordObscure
                                     ? Icons.visibility
-                                    : Icons.visibility_off)),
+                                    : Icons.visibility_off,
+                              ),
+                            ),
                             errorText: controller.confirmPasswordErrorMessage,
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(16),
+                              borderSide: BorderSide(
+                                color: Theme.of(context).colorScheme.primary,
+                              ),
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(16),
+                              borderSide: BorderSide(
+                                color: Theme.of(context)
+                                    .colorScheme
+                                    .secondary, // Active border color
+                                width: 2.0, // Optional: Adjust the border width
+                              ),
                             ),
                             hintText: "Confirm Password".tr,
                           ),

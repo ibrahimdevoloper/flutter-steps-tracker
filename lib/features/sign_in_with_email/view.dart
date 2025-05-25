@@ -34,10 +34,11 @@ class SignInWithEmailPage extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Expanded(
-                        child: Image.asset(
-                      "assets/images/icon.png",
-                      fit: BoxFit.contain,
-                    )),
+                      child: Image.asset(
+                        "assets/images/icon.png",
+                        fit: BoxFit.contain,
+                      ),
+                    ),
                     GradientText(
                       "Steptiper",
                       style: const TextStyle(
@@ -50,8 +51,9 @@ class SignInWithEmailPage extends StatelessWidget {
                     Text(
                       "Sign in with E-mail".tr,
                       style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Theme.of(context).colorScheme.primary),
+                        fontWeight: FontWeight.bold,
+                        color: Theme.of(context).colorScheme.primary,
+                      ),
                     ),
                   ],
                 ),
@@ -72,17 +74,33 @@ class SignInWithEmailPage extends StatelessWidget {
                             init: controller,
                             builder: (controller) {
                               return TextField(
+                                keyboardType: TextInputType.emailAddress,
                                 decoration: InputDecoration(
                                   errorText: controller.emailErrorMessage,
+                                  // make the border color same as primary color
                                   border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(16),
+                                    borderSide: BorderSide(
+                                      color:
+                                          Theme.of(context).colorScheme.primary,
+                                    ),
+                                  ),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(16),
+                                    borderSide: BorderSide(
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .secondary, // Active border color
+                                      width:
+                                          2.0, // Optional: Adjust the border width
+                                    ),
                                   ),
                                   hintText: "E-mail".tr,
                                 ),
                                 style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    color:
-                                        Theme.of(context).colorScheme.primary),
+                                  fontWeight: FontWeight.bold,
+                                  color: Theme.of(context).colorScheme.primary,
+                                ),
                                 onChanged: (value) {
                                   controller.email = value;
                                 },
@@ -105,15 +123,32 @@ class SignInWithEmailPage extends StatelessWidget {
                                 obscureText: controller.isPasswordObscure,
                                 decoration: InputDecoration(
                                   suffix: IconButton(
-                                      onPressed: () {
-                                        controller.switchPasswordObscure();
-                                      },
-                                      icon: Icon(controller.isPasswordObscure
+                                    onPressed: () {
+                                      controller.switchPasswordObscure();
+                                    },
+                                    icon: Icon(
+                                      controller.isPasswordObscure
                                           ? Icons.visibility
-                                          : Icons.visibility_off)),
+                                          : Icons.visibility_off,
+                                    ),
+                                  ),
                                   errorText: controller.passwordErrorMessage,
                                   border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(16),
+                                    borderSide: BorderSide(
+                                      color:
+                                          Theme.of(context).colorScheme.primary,
+                                    ),
+                                  ),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(16),
+                                    borderSide: BorderSide(
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .secondary, // Active border color
+                                      width:
+                                          2.0, // Optional: Adjust the border width
+                                    ),
                                   ),
                                   hintText: "Password".tr,
                                 ),
