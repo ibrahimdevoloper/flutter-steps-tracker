@@ -21,13 +21,16 @@ class HomePage extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Theme.of(context).colorScheme.primary,
-          title: const Text(
+          title: Text(
             "Steptiper",
             style: TextStyle(
               fontWeight: FontWeight.bold,
               // color: Theme.of(context).colorScheme.secondary,
             ),
           ),
+          foregroundColor: Theme.of(context).brightness == Brightness.light
+              ? Colors.white
+              : Colors.grey[800],
           actions: [
             // IconButton(
             //     onPressed: () {
@@ -37,6 +40,9 @@ class HomePage extends StatelessWidget {
           ],
         ),
         drawer: Drawer(
+          backgroundColor: Theme.of(context).brightness == Brightness.light
+              ? Colors.white
+              : Colors.grey[800],
           child: Column(
             children: [
               DrawerHeader(
@@ -134,18 +140,18 @@ class HomePage extends StatelessWidget {
                   controller.goToTermsAndCondition();
                 },
               ),
-              ListTile(
-                title: Text(
-                  "History".tr,
-                  style: Theme.of(context).textTheme.labelLarge!.copyWith(
-                        fontWeight: FontWeight.bold,
-                        color: Theme.of(context).colorScheme.primary,
-                      ),
-                ),
-                onTap: () {
-                  Get.to(() => HistoryPage());
-                },
-              ),
+              // ListTile(
+              //   title: Text(
+              //     "History".tr,
+              //     style: Theme.of(context).textTheme.labelLarge!.copyWith(
+              //           fontWeight: FontWeight.bold,
+              //           color: Theme.of(context).colorScheme.primary,
+              //         ),
+              //   ),
+              //   onTap: () {
+              //     Get.to(() => HistoryPage());
+              //   },
+              // ),
               ListTile(
                 title: Text(
                   "Sign Out".tr,
@@ -179,6 +185,11 @@ class HomePage extends StatelessWidget {
                       ),
                 ),
                 activeColor: Theme.of(context).colorScheme.primary,
+                inactiveThumbColor: Theme.of(context).colorScheme.primary,
+                inactiveTrackColor:
+                    Theme.of(context).colorScheme.primary.withOpacity(0.5),
+                activeTrackColor:
+                    Theme.of(context).colorScheme.primary.withOpacity(0.5),
                 value: Get.isDarkMode,
                 onChanged: (value) {
                   Get.changeThemeMode(
@@ -283,36 +294,39 @@ class HomePage extends StatelessWidget {
                                         init: controller,
                                         id: HomeController.stepCounterTag,
                                         builder: (controller) {
-                                          return AnimatedSlideOdometerNumber(
-                                            letterWidth: 36,
-                                            odometerNumber:
-                                                OdometerNumber.fromDigits({
-                                              1: (controller.stepCount % 10)
-                                                  .floorToDouble(),
-                                              2: (controller.stepCount /
-                                                      10 %
-                                                      10)
-                                                  .floorToDouble(),
-                                              3: (controller.stepCount /
-                                                      100 %
-                                                      10)
-                                                  .floorToDouble(),
-                                              4: (controller.stepCount /
-                                                      1000 %
-                                                      10)
-                                                  .floorToDouble(),
-                                            }),
-                                            duration: const Duration(
-                                                milliseconds: 600),
-                                            numberTextStyle: Theme.of(context)
-                                                .textTheme
-                                                .displayMedium!
-                                                .copyWith(
-                                                  fontWeight: FontWeight.bold,
-                                                  color: Theme.of(context)
-                                                      .colorScheme
-                                                      .secondary,
-                                                ),
+                                          return Directionality(
+                                            textDirection: TextDirection.ltr,
+                                            child: AnimatedSlideOdometerNumber(
+                                              letterWidth: 36,
+                                              odometerNumber:
+                                                  OdometerNumber.fromDigits({
+                                                1: (controller.stepCount % 10)
+                                                    .floorToDouble(),
+                                                2: (controller.stepCount /
+                                                        10 %
+                                                        10)
+                                                    .floorToDouble(),
+                                                3: (controller.stepCount /
+                                                        100 %
+                                                        10)
+                                                    .floorToDouble(),
+                                                4: (controller.stepCount /
+                                                        1000 %
+                                                        10)
+                                                    .floorToDouble(),
+                                              }),
+                                              duration: const Duration(
+                                                  milliseconds: 600),
+                                              numberTextStyle: Theme.of(context)
+                                                  .textTheme
+                                                  .displayMedium!
+                                                  .copyWith(
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Theme.of(context)
+                                                        .colorScheme
+                                                        .secondary,
+                                                  ),
+                                            ),
                                           );
                                         }),
                                   ],
@@ -350,35 +364,39 @@ class HomePage extends StatelessWidget {
                                       init: controller,
                                       id: HomeController.heathPointsTag,
                                       builder: (controller) {
-                                        return AnimatedSlideOdometerNumber(
-                                          letterWidth: 36,
-                                          odometerNumber:
-                                              OdometerNumber.fromDigits({
-                                            1: (controller.healthPoints % 10)
-                                                .floorToDouble(),
-                                            2: (controller.healthPoints /
-                                                    10 %
-                                                    10)
-                                                .floorToDouble(),
-                                            3: (controller.healthPoints /
-                                                    100 %
-                                                    10)
-                                                .floorToDouble(),
-                                            4: (controller.healthPoints /
-                                                    1000 %
-                                                    10)
-                                                .floorToDouble(),
-                                          }),
-                                          duration: const Duration(seconds: 1),
-                                          numberTextStyle: Theme.of(context)
-                                              .textTheme
-                                              .displayMedium!
-                                              .copyWith(
-                                                fontWeight: FontWeight.bold,
-                                                color: Theme.of(context)
-                                                    .colorScheme
-                                                    .primary,
-                                              ),
+                                        return Directionality(
+                                          textDirection: TextDirection.ltr,
+                                          child: AnimatedSlideOdometerNumber(
+                                            letterWidth: 36,
+                                            odometerNumber:
+                                                OdometerNumber.fromDigits({
+                                              1: (controller.healthPoints % 10)
+                                                  .floorToDouble(),
+                                              2: (controller.healthPoints /
+                                                      10 %
+                                                      10)
+                                                  .floorToDouble(),
+                                              3: (controller.healthPoints /
+                                                      100 %
+                                                      10)
+                                                  .floorToDouble(),
+                                              4: (controller.healthPoints /
+                                                      1000 %
+                                                      10)
+                                                  .floorToDouble(),
+                                            }),
+                                            duration:
+                                                const Duration(seconds: 1),
+                                            numberTextStyle: Theme.of(context)
+                                                .textTheme
+                                                .displayMedium!
+                                                .copyWith(
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Theme.of(context)
+                                                      .colorScheme
+                                                      .primary,
+                                                ),
+                                          ),
                                         );
                                       }),
                                 ],

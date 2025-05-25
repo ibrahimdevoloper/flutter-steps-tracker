@@ -137,6 +137,7 @@ class MainMaterialApp extends StatelessWidget {
     if (isDarkMode == null) {
       return ThemeMode.system;
     }
+    print("🚀 isDarkMode: $isDarkMode");
     return isDarkMode ? ThemeMode.dark : ThemeMode.light;
   }
 
@@ -152,7 +153,7 @@ class MainMaterialApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-        title: 'Flutter Demo',
+        title: 'Steptiper',
         translations: Messages(),
         //TODO: get the user's preferred language from GetStorage.
         locale: _getLocale(),

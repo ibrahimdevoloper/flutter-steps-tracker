@@ -68,14 +68,14 @@ class SignInController extends GetxController with PrivacyAndTermsMixin {
 
       if (usersCount < 1) {
         var userDoc = await _firestoreService.createUser(
-          uid: selectedGoogleAccount.uid ?? "",
+          uid: selectedGoogleAccount.uid,
           email: selectedGoogleAccount.email ?? "",
           displayName: selectedGoogleAccount.displayName ?? "",
         );
         saveUserDataLocally(userDoc.id, selectedGoogleAccount.displayName);
       } else {
         var userData = await _firestoreService.getUserData(
-          uid: selectedGoogleAccount.uid ?? "",
+          uid: selectedGoogleAccount.uid,
         );
         saveUserDataLocally(userData?.docId ?? "", userData?.name ?? "");
       }
