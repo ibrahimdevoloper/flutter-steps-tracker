@@ -13,9 +13,9 @@ import 'package:flutter_steps_tracker/core/utilities/project_constants.dart';
 import 'package:flutter_steps_tracker/features/home/dialogs/confirmation_dialog.dart';
 import 'package:flutter_steps_tracker/features/sign_in/view.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:pedometer/pedometer.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeController extends GetxController with PrivacyAndTermsMixin {
   final PedometerService _pedometerService = PedometerService();
@@ -26,7 +26,6 @@ class HomeController extends GetxController with PrivacyAndTermsMixin {
 
   late FirebaseFirestore _db;
   var _isloading = false;
-  SharedPreferences pref = Get.find();
 
   late String _userid;
   UserData? _userData;
@@ -39,7 +38,7 @@ class HomeController extends GetxController with PrivacyAndTermsMixin {
   static var main = "main";
 
   HomeController() {
-    _userid = pref.getString(ProjectConstants.userId)!;
+    _userid = GetStorage().read(ProjectConstants.userId);
     _db = FirebaseFirestore.instance;
     requestPermission().then((value) {
       if (value) getData();
@@ -50,7 +49,7 @@ class HomeController extends GetxController with PrivacyAndTermsMixin {
 
   @override
   void onReady() {
-    var isDarkMode = pref.getBool(ProjectConstants.isDarkMode) ??
+    var isDarkMode = GetStorage().read(ProjectConstants.userId) ??
         ThemeMode.system == ThemeMode.dark;
     Get.changeThemeMode(isDarkMode ? ThemeMode.light : ThemeMode.dark);
   }
@@ -207,8 +206,8 @@ class HomeController extends GetxController with PrivacyAndTermsMixin {
   }
 
   Future<void> signOut() async {
-    pref.setString(ProjectConstants.username, "");
-    pref.setString(ProjectConstants.userId, "");
+    GetStorage().remove(ProjectConstants.username);
+    GetStorage().remove(ProjectConstants.userId);
     await FirebaseAuth.instance.signOut();
     Get.offAll(() => SignInPage());
   }

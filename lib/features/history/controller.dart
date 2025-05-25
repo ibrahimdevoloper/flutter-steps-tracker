@@ -4,12 +4,11 @@ import 'package:flutter_steps_tracker/core/models/steps_number/steps_number.dart
 import 'package:flutter_steps_tracker/core/utilities/custom_snackbar.dart';
 import 'package:flutter_steps_tracker/core/utilities/project_constants.dart';
 import 'package:get/get.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:get_storage/get_storage.dart';
 
 class HistoryController extends GetxController {
   var _isRedeemLoading = false;
   var _isStepsNumberLoading = false;
-  SharedPreferences pref = Get.find();
   late FirebaseFirestore _db;
   late String _userid;
   final List<Redeem> _redeems = [];
@@ -25,7 +24,7 @@ class HistoryController extends GetxController {
     try {
       _isRedeemLoading = true;
       update();
-      _userid = pref.getString(ProjectConstants.userId)!;
+      _userid = GetStorage().read(ProjectConstants.userId);
       var redeemsDocs = await _db
           .collection("users")
           .doc(_userid)
@@ -48,7 +47,7 @@ class HistoryController extends GetxController {
     try {
       _isStepsNumberLoading = true;
       update();
-      _userid = pref.getString(ProjectConstants.userId)!;
+      GetStorage().read(ProjectConstants.userId);
       var stepsNumberDocs = await _db
           .collection("users")
           .doc(_userid)

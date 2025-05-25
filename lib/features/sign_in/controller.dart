@@ -6,7 +6,7 @@ import 'package:flutter_steps_tracker/core/utilities/custom_snackbar.dart';
 import 'package:flutter_steps_tracker/core/utilities/project_constants.dart';
 import 'package:flutter_steps_tracker/features/home/view.dart';
 import 'package:get/get.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:get_storage/get_storage.dart';
 
 class SignInController extends GetxController with PrivacyAndTermsMixin {
   String? _username;
@@ -102,9 +102,14 @@ class SignInController extends GetxController with PrivacyAndTermsMixin {
   }
 
   void saveUserDataLocally(userDoc, username) {
-    SharedPreferences pref = Get.find();
-    pref.setString(ProjectConstants.userId, userDoc);
-    pref.setString(ProjectConstants.username, username);
+    GetStorage().write(
+      ProjectConstants.userId,
+      userDoc,
+    );
+    GetStorage().write(
+      ProjectConstants.username,
+      username,
+    );
   }
 
   // signIn() async {

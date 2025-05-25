@@ -10,16 +10,17 @@ import 'package:flutter_steps_tracker/core/utilities/translation.dart';
 import 'package:flutter_steps_tracker/features/home/view.dart';
 import 'package:flutter_steps_tracker/features/splash/view.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:package_info_plus/package_info_plus.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import 'features/sign_in/view.dart';
 import 'firebase_options.dart';
 
 main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await GetStorage.init();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
@@ -33,16 +34,13 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return FutureBuilder<List>(
       future: Future.wait([
-        SharedPreferences.getInstance(),
         getLatestVersionCode(),
         Future.delayed(const Duration(seconds: 3)),
       ]),
       builder: (context, snapshot) {
         VersionInformation? versionInformation;
         if (snapshot.hasData) {
-          SharedPreferences pref = snapshot.data![0];
           versionInformation = snapshot.data![1];
-          Get.put(pref);
           Get.put(FirestoreService(FirebaseFirestore.instance));
           Get.put(FirebaseAuthService(FirebaseAuth.instance, GoogleSignIn()));
 
@@ -65,8 +63,7 @@ class MyApp extends StatelessWidget {
   }
 
   changeToDefaultLocale() async {
-    SharedPreferences pref = await SharedPreferences.getInstance();
-    var localeLang = pref.getString(ProjectConstants.isArabic) ?? "en";
+    var localeLang = GetStorage().read(ProjectConstants.isArabic) ?? "en";
     var locale = Locale(localeLang);
     await Get.updateLocale(locale);
   }
@@ -120,8 +117,7 @@ class UserStreamBuilder extends StatelessWidget {
     return StreamBuilder<User?>(
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (context, snapshot) {
-          SharedPreferences pref = Get.find();
-          var username = pref.getString(ProjectConstants.username) ?? "";
+          var username = GetStorage().read(ProjectConstants.username);
           if (snapshot.data == null || username.isEmpty) {
             return SignInPage();
           } else {
@@ -137,12 +133,20 @@ class MainMaterialApp extends StatelessWidget {
   const MainMaterialApp({super.key, required this.child});
 
   ThemeMode _getThemeMode() {
-    final box = Get.find<SharedPreferences>();
-    final isDarkMode = box.getBool('isDarkMode');
+    final isDarkMode = GetStorage().read(ProjectConstants.isDarkMode);
     if (isDarkMode == null) {
       return ThemeMode.system;
     }
     return isDarkMode ? ThemeMode.dark : ThemeMode.light;
+  }
+
+  Locale? _getLocale() {
+    final isArabic = GetStorage().read(ProjectConstants.isArabic);
+    if (isArabic == null) {
+      return Get.deviceLocale;
+    }
+    print("🚀 isArabic: $isArabic");
+    return Locale(isArabic);
   }
 
   @override
@@ -151,10 +155,8 @@ class MainMaterialApp extends StatelessWidget {
         title: 'Flutter Demo',
         translations: Messages(),
         //TODO: get the user's preferred language from GetStorage.
-        locale: Get.deviceLocale,
-        //TODO: get the user's preferred theme from GetStorage.
-        themeMode: ThemeMode.dark,
-        // themeMode: _getThemeMode(),
+        locale: _getLocale(),
+        themeMode: _getThemeMode(),
         darkTheme: ThemeData(
           scaffoldBackgroundColor: Colors.grey[800],
           dialogTheme: DialogTheme(
@@ -183,20 +185,20 @@ class MainMaterialApp extends StatelessWidget {
               ThemeData(brightness: Brightness.dark).textTheme),
         ),
         theme: ThemeData(
-            scaffoldBackgroundColor: Colors.white60,
+          brightness: Brightness.light,
+          dialogTheme: DialogTheme(
+            elevation: 10,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(8),
+            ),
+          ),
+          colorScheme: ColorScheme.fromSwatch().copyWith(
             brightness: Brightness.light,
-            dialogTheme: DialogTheme(
-              elevation: 10,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(8),
-              ),
-            ),
-            colorScheme: ColorScheme.fromSwatch().copyWith(
-              brightness: Brightness.light,
-              primary: const Color(0xFF5BB318),
-              secondary: const Color(0xFFEAE509),
-            ),
-            textTheme: GoogleFonts.cairoTextTheme()),
+            primary: const Color(0xFF5BB318),
+            secondary: const Color(0xFFEAE509),
+          ),
+          textTheme: GoogleFonts.cairoTextTheme(),
+        ),
         home: child);
   }
 }
