@@ -7,13 +7,13 @@ Future<bool?> showConfirmationDialog(String title, String content) async {
     content: Text(content),
     actions: <Widget>[
       TextButton(
-        child: Text('Cancel'),
+        child: Text('Cancel'.tr),
         onPressed: () {
           Get.back<bool>(result: false);
         },
       ),
       ElevatedButton(
-        child: Text('Confirm'),
+        child: Text('Confirm'.tr),
         onPressed: () {
           Get.back<bool>(result: true);
         },

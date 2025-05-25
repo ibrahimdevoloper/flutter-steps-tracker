@@ -66,7 +66,17 @@ class Messages extends Translations {
           "Please, Fill the form Correctly.":
               "Please, Fill the form Correctly.",
           "Delete Account": "Delete Account",
-          "Sign out": "Sign out",
+          "Sign Out": "Sign Out",
+          "Privacy Policy": "Privacy Policy",
+          "Terms and Conditions": "Terms and Conditions",
+          "In order to use the app you need to accept the requested permission.\nThis permission is only for counting steps.":
+              "In order to use the app you need to accept the requested permission.\nThis permission is only for counting steps.",
+          "In order to use the app you need to accept the requested permission.\nif you accept, you will be redirected to the app setting, otherwise you will sign out.":
+              "In order to use the app you need to accept the requested permission.\nif you accept, you will be redirected to the app setting, otherwise you will sign out.",
+          "Are you sure?": "Are you sure?",
+          "By Signing in You Are Agreeing to Our\n":
+              "By Signing in You Are Agreeing to Our\n",
+          " and ": " and ",
         },
         'ar': {
           "Welcome": "مرحبا",
@@ -129,7 +139,17 @@ class Messages extends Translations {
           "Incorrect E-mail": "بريد الكتروني غير صحيح",
           "Please, Fill the form Correctly.": "رجاءاً، إملأ الحقول بصورة صحيحة",
           "Delete Account": "حذف الحساب",
-          "Sign out": "تسجيل الخروج",
+          "Sign Out": "تسجيل الخروج",
+          "Privacy Policy": "سياسة الخصوصية",
+          "Terms and Conditions": "الشروط والأحكام",
+          "In order to use the app you need to accept the requested permission.\nThis permission is only for counting steps.":
+              "لاستخدام التطبيق يجب أن تقبل السماحية المطلوبة.\nهذه السماحية فقط لحساب الخطوات.",
+          "In order to use the app you need to accept the requested permission.\nif you accept, you will be redirected to the app setting, otherwise you will sign out.":
+              "لاستخدام التطبيق يجب أن تقبل السماحية المطلوبة.\nإذا قبلت، سيتم توجيهك إلى إعدادات التطبيق، وإلا ستخرج من التطبيق.",
+          "Are you sure?": "هل أنت متأكد؟",
+          "By Signing in You Are Agreeing to Our\n":
+              "بتسجيل الدخول أنت توافق على\n",
+          " and ": " و ",
         }
       };
 }

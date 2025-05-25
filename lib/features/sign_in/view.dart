@@ -184,14 +184,14 @@ class SignInPage extends StatelessWidget {
                 child: RichText(
                   textAlign: TextAlign.center,
                   text: TextSpan(
-                    text: "By Signing in You Are Agreeing to Our\n",
+                    text: "By Signing in You Are Agreeing to Our\n".tr,
                     style: GoogleFonts.cairo(
                       color: Get.isDarkMode ? Colors.white : Colors.black54,
                       fontWeight: FontWeight.bold,
                     ),
                     children: [
                       TextSpan(
-                        text: "Terms of Service",
+                        text: "Terms and Conditions".tr,
                         style: GoogleFonts.cairo(
                           color: Get.theme.colorScheme.primary,
                           fontWeight: FontWeight.bold,
@@ -202,14 +202,14 @@ class SignInPage extends StatelessWidget {
                           },
                       ),
                       TextSpan(
-                        text: " and ",
+                        text: " and ".tr,
                         style: GoogleFonts.cairo(
                           color: Get.isDarkMode ? Colors.white : Colors.black54,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                       TextSpan(
-                        text: "Privacy Policy",
+                        text: "Privacy Policy".tr,
                         style: GoogleFonts.cairo(
                           color: Get.theme.colorScheme.primary,
                           fontWeight: FontWeight.bold,

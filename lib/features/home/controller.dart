@@ -68,12 +68,14 @@ class HomeController extends GetxController with PrivacyAndTermsMixin {
       print(
           "shouldShowRequestRationale: ${await activityRecognitionPermission.shouldShowRequestRationale}");
       await showConfirmationDialog("Enabling Permission".tr,
-          "In order to use the app you need to accept the requested permission.\nThis permission is only for counting steps.");
+          "In order to use the app you need to accept the requested permission.\nThis permission is only for counting steps."
+              .tr);
       return await requestPermission();
     } else if (status.isPermanentlyDenied || status.isDenied) {
       print("isPermanentlyDenied: ${status.isPermanentlyDenied}");
       var isConfirmed = await showConfirmationDialog("Enabling Permission".tr,
-          "In order to use the app you need to accept the requested permission.\nif you accept, you will be redirected to the app setting, otherwise you will sign out.");
+          "In order to use the app you need to accept the requested permission.\nif you accept, you will be redirected to the app setting, otherwise you will sign out."
+              .tr);
       if (isConfirmed == true) {
         print("opening app setting");
         await AppSettings.openAppSettings();
@@ -215,7 +217,7 @@ class HomeController extends GetxController with PrivacyAndTermsMixin {
   deleteAccountDialog() async {
     Get.back();
     var isConfirmed =
-        await showConfirmationDialog("Delete Account".tr, "Are you sure?");
+        await showConfirmationDialog("Delete Account".tr, "Are you sure?".tr);
     if (isConfirmed == true) {
       await deleteAccount();
     } else {

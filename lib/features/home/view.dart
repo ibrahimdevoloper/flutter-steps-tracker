@@ -1,7 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_steps_tracker/core/utilities/project_constants.dart';
-import 'package:flutter_steps_tracker/features/history/views/view.dart';
 import 'package:flutter_steps_tracker/features/leaderboard/view.dart';
 import 'package:flutter_steps_tracker/features/our_rewards/view.dart';
 import 'package:get/get.dart';
@@ -64,26 +63,28 @@ class HomePage extends StatelessWidget {
                   ],
                 ),
               ),
-              ToggleSwitch(
-                minWidth: 90.0,
-                minHeight: 34.0,
-                fontSize: 16.0,
-                initialLabelIndex: Get.locale!.languageCode == "ar" ? 1 : 0,
-                activeBgColor: [Theme.of(context).colorScheme.primary],
-                activeFgColor: Colors.white,
-                inactiveBgColor: Colors.grey,
-                inactiveFgColor: Colors.grey[900],
-                totalSwitches: 2,
-                labels: ["English", "عربي"],
-                onToggle: (index) {
-                  print('switched to: $index');
-                  var locale =
-                      index == 0 ? const Locale('en') : const Locale('ar');
-                  Get.updateLocale(locale);
-                  SharedPreferences pref = Get.find();
-                  pref.setString(
-                      ProjectConstants.isArabic, locale.languageCode);
-                },
+              Directionality(
+                textDirection: TextDirection.ltr,
+                child: ToggleSwitch(
+                  minWidth: 90.0,
+                  minHeight: 34.0,
+                  fontSize: 16.0,
+                  initialLabelIndex: Get.locale!.languageCode == "ar" ? 1 : 0,
+                  activeBgColor: [Theme.of(context).colorScheme.primary],
+                  activeFgColor: Colors.white,
+                  inactiveBgColor: Colors.grey,
+                  inactiveFgColor: Colors.grey[900],
+                  totalSwitches: 2,
+                  labels: ["English", "عربي"],
+                  onToggle: (index) {
+                    print('switched to: $index');
+                    var locale =
+                        index == 0 ? const Locale('en') : const Locale('ar');
+                    Get.updateLocale(locale);
+                    GetStorage()
+                        .write(ProjectConstants.isArabic, locale.languageCode);
+                  },
+                ),
               ),
               ListTile(
                 title: Text(
@@ -111,7 +112,7 @@ class HomePage extends StatelessWidget {
               ),
               ListTile(
                 title: Text(
-                  "Privacy Policy",
+                  "Privacy Policy".tr,
                   style: Theme.of(context).textTheme.labelLarge!.copyWith(
                         fontWeight: FontWeight.bold,
                         color: Theme.of(context).colorScheme.primary,
@@ -123,7 +124,7 @@ class HomePage extends StatelessWidget {
               ),
               ListTile(
                 title: Text(
-                  "Terms and Conditions",
+                  "Terms and Conditions".tr,
                   style: Theme.of(context).textTheme.labelLarge!.copyWith(
                         fontWeight: FontWeight.bold,
                         color: Theme.of(context).colorScheme.primary,
@@ -147,7 +148,7 @@ class HomePage extends StatelessWidget {
               ),
               ListTile(
                 title: Text(
-                  "Sign out".tr,
+                  "Sign Out".tr,
                   style: Theme.of(context).textTheme.labelLarge!.copyWith(
                         fontWeight: FontWeight.bold,
                         color: Theme.of(context).colorScheme.primary,
